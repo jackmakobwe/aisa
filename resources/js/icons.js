@@ -1,0 +1,55 @@
+// Only the icons the site uses are bundled, to keep downloads small.
+import {
+    createIcons,
+    AlertTriangle,
+    ArrowLeft,
+    ArrowRight,
+    Check,
+    ChevronRight,
+    Clock,
+    Copy,
+    DoorOpen,
+    ExternalLink,
+    FileText,
+    Flag,
+    Globe,
+    HeartHandshake,
+    Inbox,
+    Info,
+    KeyRound,
+    LayoutDashboard,
+    LifeBuoy,
+    Lock,
+    LogOut,
+    Menu,
+    MessageCircle,
+    NotebookPen,
+    Phone,
+    Printer,
+    RotateCw,
+    Search,
+    Send,
+    Settings,
+    ShieldAlert,
+    ShieldCheck,
+    Sparkles,
+    Star,
+    Trash2,
+    UserRound,
+    Users,
+    X,
+    ChartColumn,
+    BookmarkCheck,
+    MailWarning,
+} from 'lucide';
+
+const icons = {
+    AlertTriangle, ArrowLeft, ArrowRight, Check, ChevronRight, Clock, Copy, DoorOpen, ExternalLink, FileText,
+    Flag, Globe, HeartHandshake, Inbox, Info, KeyRound, LayoutDashboard, LifeBuoy, Lock, LogOut, Menu,
+    MessageCircle, NotebookPen, Phone, Printer, RotateCw, Search, Send, Settings, ShieldAlert, ShieldCheck,
+    Sparkles, Star, Trash2, UserRound, Users, X, ChartColumn, BookmarkCheck, MailWarning,
+};
+
+export function renderIcons() {
+    createIcons({ icons, attrs: { 'aria-hidden': 'true', 'stroke-width': 1.75 } });
+}

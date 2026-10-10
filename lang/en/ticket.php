@@ -1,0 +1,38 @@
+<?php
+
+return [
+    'session_ended' => 'Please enter your code to open your conversation.',
+
+    'issued_title' => 'Your private code',
+    'issued_heading' => 'Save your private code',
+    'issued_intro' => 'This code is the only way back to your conversation and Aisa\'s reply. It is shown only once.',
+    'your_code' => 'Your code',
+    'copy' => 'Copy code',
+    'copied' => 'Copied',
+    'print' => 'Print',
+    'lost_title' => 'We cannot recover a lost code',
+    'lost_body' => 'We do not know who you are, so if you lose this code nobody can find your conversation for you. Save it somewhere private before you continue.',
+    'tip_1' => 'Copy it into a private note, or write it down.',
+    'tip_2' => 'Do not share it: anyone with the code can read your conversation.',
+    'tip_3' => 'To come back, go to "Check your code" on this site.',
+    'remember_label' => 'Remember this code on this device',
+    'remember_hint' => 'Only choose this on a device nobody else uses. You can make this device forget it at any time.',
+    'saved_button' => 'I have saved my code',
+    'saved_thanks' => 'Thank you. Keep your code somewhere safe.',
+    'already_issued' => 'This conversation already has a code. For your safety we cannot show it again.',
+
+    'check_title' => 'Check your code',
+    'check_heading' => 'Check your code',
+    'check_intro' => 'Enter your private code to read replies and continue your conversation.',
+    'code_label' => 'Your code',
+    'code_hint' => 'Capital or small letters both work, with or without the dashes.',
+    'open' => 'Open my conversation',
+    'remembered_title' => 'This device remembers a code',
+    'remembered_body' => 'You chose to remember your code on this device.',
+    'remembered_open' => 'Open my conversation',
+    'forget_device' => 'Forget it on this device',
+    'device_forgotten' => 'This device no longer remembers your code.',
+    'lost_short' => 'Lost your code? We are sorry: for your privacy, conversations cannot be recovered without it. You are welcome to start a new conversation.',
+    'not_found' => 'We could not open a conversation with that code. Please check it and try again.',
+    'locked' => 'Too many attempts. Please wait :minutes minutes and try again.',
+];

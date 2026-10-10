@@ -1,0 +1,68 @@
+<?php
+
+return [
+    'title' => 'Your conversation',
+    'heading' => 'Your conversation',
+    'messages_label' => 'Messages',
+    'mode_ai' => 'Talking with :name (AI)',
+    'mode_human' => 'Personal reply requested',
+    'human_waiting' => 'You asked for a personal reply from Aisa. She usually replies within :hours hours. You can add more here and she will see it. The AI assistant will not reply while you wait.',
+    'human_answered' => 'Aisa has replied. If you write again, your message goes to her.',
+
+    'you' => 'You',
+    'ai_label' => ':name · AI assistant',
+    'human_label' => 'Aisa · personal reply',
+    'mock_badge' => 'Simulated (development)',
+
+    'sending' => 'Sending…',
+    'thinking' => ':name is writing…',
+    'ai_unavailable' => 'The AI assistant could not reply just now. Your message is saved. You can try again, or choose a personal reply from Aisa.',
+    'generic_error' => 'Something went wrong. Your message may not have been sent. Please try again.',
+    'network_error' => 'We could not reach the server. Please check your connection and try again.',
+    'retry' => 'Try again',
+
+    'suggest_human_title' => 'Would a person help?',
+    'suggest_human_body' => 'You can ask for a personal reply from Aisa at any time.',
+    'choose_help' => 'Choose your help',
+
+    'your_message' => 'message',
+    'composer_label' => 'Your reply',
+    'composer_label_human' => 'Add a message for Aisa',
+    'placeholder' => 'Write here…',
+    'enter_hint' => 'Enter to send, Shift+Enter for a new line',
+    'send' => 'Send',
+
+    'safety_title' => 'You do not have to face this alone',
+    'safety_body' => 'What you shared sounds serious. If you are in danger or might hurt yourself, please contact emergency services or someone you trust right now.',
+    'safety_limits' => 'Aisa has been alerted and will look at this conversation, but she is not watching around the clock and may not see it for up to :hours hours. Please do not wait for a reply here if you need help now.',
+
+    'side_label' => 'Help and options',
+    'side_help_title' => 'Need help right now?',
+    'side_help_body' => 'Aisa is not an emergency service.',
+    'side_choose_title' => 'Choose your help',
+    'side_choose_body' => 'Keep talking with the AI assistant, or ask for a personal reply from Aisa.',
+    'side_code_title' => 'Coming back later',
+    'side_code_has' => 'You have a code for this conversation. Use "Check your code" to come back.',
+    'side_code_none' => 'Get a private code so you can return to this conversation later.',
+    'get_code' => 'Get my code',
+    'side_privacy_title' => 'Privacy',
+    'side_privacy_1' => 'Your conversation is stored encrypted.',
+    'side_privacy_2' => 'Use Quick exit to leave at once.',
+    'side_privacy_3' => 'On a shared device, leave the conversation when you finish.',
+
+    'rating_question' => 'How helpful was Aisa\'s reply?',
+    'rating_value' => ':value out of 5',
+    'rating_scale' => '1 = not helpful, 5 = very helpful. Optional.',
+    'rating_submit' => 'Send rating',
+    'rating_thanks' => 'Thank you for your feedback.',
+
+    'leave' => 'Leave this conversation',
+    'left' => 'You have left the conversation. Use your code to come back.',
+    'delete' => 'Delete my conversation',
+    'delete_explain' => 'Aisa will delete this conversation and everything in it. This cannot be undone, and your code will stop working.',
+    'delete_confirm' => 'Yes, I want this conversation deleted.',
+    'delete_confirm_required' => 'Please tick the box to confirm.',
+    'delete_submit' => 'Request deletion',
+    'delete_requested' => 'Your deletion request has been received. Aisa will delete the conversation soon.',
+    'deletion_pending' => 'You asked for this conversation to be deleted, so no new messages can be added.',
+];

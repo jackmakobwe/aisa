@@ -1,0 +1,6 @@
+{{-- Aisa mark: a listening ear formed by two arcs inside a soft circle. --}}
+<svg {{ $attributes->merge(['viewBox' => '0 0 40 40', 'aria-hidden' => 'true', 'focusable' => 'false']) }} xmlns="http://www.w3.org/2000/svg">
+    <circle cx="20" cy="20" r="19" fill="#2e5e4e"/>
+    <path d="M14 25.5c-1.6-1.6-2.5-3.7-2.5-6 0-4.7 3.8-8.5 8.5-8.5s8.5 3.8 8.5 8.5c0 3.2-1.8 5-3.4 6.3-1.2 1-2.1 1.8-2.1 3.2 0 1.5-1.2 2.5-2.6 2.5" fill="none" stroke="#faf7f2" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M17 19.5c0-1.7 1.3-3 3-3s3 1.3 3 3c0 1.4-.9 2.1-1.6 2.7" fill="none" stroke="#8faa93" stroke-width="2.4" stroke-linecap="round"/>
+</svg>
