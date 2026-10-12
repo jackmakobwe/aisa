@@ -28,7 +28,7 @@ class Ticket extends Model
 
     protected $fillable = [
         'reference', 'consent_record_id', 'locale', 'language', 'display_name', 'is_minor',
-        'help_mode', 'status', 'category', 'urgency', 'safety_flagged', 'last_activity_at',
+        'help_mode', 'status', 'category', 'module', 'urgency', 'safety_flagged', 'last_activity_at',
     ];
 
     protected $hidden = ['code_hash'];

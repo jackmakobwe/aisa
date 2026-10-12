@@ -21,9 +21,12 @@ class ConsentController extends Controller
 {
     private const DRAFT_KEY = 'aisa.draft';
 
+    private const MODULE_KEY = 'aisa.draft_module';
+
     public function start(UserMessageRequest $request): RedirectResponse
     {
         $request->session()->put(self::DRAFT_KEY, $request->validated('message'));
+        $request->session()->put(self::MODULE_KEY, $request->validated('module'));
 
         return redirect()->route('consent.show');
     }
@@ -42,7 +45,7 @@ class ConsentController extends Controller
     /** Declining discards the waiting message; nothing is stored. */
     public function decline(Request $request): RedirectResponse
     {
-        $request->session()->forget(self::DRAFT_KEY);
+        $request->session()->forget([self::DRAFT_KEY, self::MODULE_KEY]);
 
         return redirect()->route('home')->with('status', __('consent.declined'));
     }
@@ -56,12 +59,13 @@ class ConsentController extends Controller
 
         $ageGroup = $request->validated('age_group');
         if ($ageGroup === 'minor' && config('aisa.minor_policy') === 'block') {
-            $request->session()->forget(self::DRAFT_KEY);
+            $request->session()->forget([self::DRAFT_KEY, self::MODULE_KEY]);
 
             return redirect()->route('under-18');
         }
 
-        [$ticket, $report] = $conversations->start(app()->getLocale(), $ageGroup, $draft);
+        $module = $request->session()->get(self::MODULE_KEY);
+        [$ticket, $report] = $conversations->start(app()->getLocale(), $ageGroup, $draft, is_string($module) ? $module : null);
 
         if ($name = trim((string) $request->validated('display_name'))) {
             $ticket->forceFill(['display_name' => $name])->save();
@@ -72,7 +76,7 @@ class ConsentController extends Controller
             AccountController::attach($ticket, $member);
         }
 
-        $request->session()->forget(self::DRAFT_KEY);
+        $request->session()->forget([self::DRAFT_KEY, self::MODULE_KEY]);
         $access->grant($ticket);
 
         $redirect = redirect()->route('conversation.show');

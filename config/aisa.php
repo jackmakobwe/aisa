@@ -20,8 +20,20 @@ return [
     'display_timezone' => env('AISA_DISPLAY_TIMEZONE', 'Africa/Dar_es_Salaam'),
 
     'ai' => [
-        // "anthropic" or "mock". The mock provider is refused in production.
+        // "anthropic", "ollama" (a free model running locally) or "mock".
+        // The mock provider is refused in production.
         'provider' => env('AISA_AI_PROVIDER', 'mock'),
+        // Local models through Ollama (https://ollama.com). Free, private,
+        // and slower on ordinary computers. See docs/ai-provider.md.
+        'ollama' => [
+            'url' => env('AISA_OLLAMA_URL', 'http://127.0.0.1:11434'),
+            'model' => env('AISA_OLLAMA_MODEL', 'qwen2.5:3b'),
+            'timeout' => (float) env('AISA_OLLAMA_TIMEOUT', 600),
+            // Tokens of context; the prompt alone is several thousand.
+            'context' => (int) env('AISA_OLLAMA_CONTEXT', 8192),
+            // How long the model stays in memory after a request.
+            'keep_alive' => env('AISA_OLLAMA_KEEP_ALIVE', '30m'),
+        ],
         'api_key' => env('ANTHROPIC_API_KEY'),
         'model' => env('AISA_AI_MODEL', 'claude-opus-5-5'),
         'effort' => env('AISA_AI_EFFORT', 'medium'),
@@ -31,11 +43,25 @@ return [
         'daily_request_cap' => (int) env('AISA_AI_DAILY_REQUEST_CAP', 2000),
         // Bump whenever a prompt in app/Services/Ai/Prompts changes, then rerun
         // the safety test set (php artisan test --filter=Safety).
-        'prompt_version' => '2026-10-10.1',
+        'prompt_version' => '2026-10-12.3',
         // Maximum gentle follow-up questions before offering guidance.
         'max_follow_up_questions' => 3,
         // How many recent messages are sent to the model per turn.
         'context_messages' => 30,
+    ],
+
+    // Guidance areas offered as entry points on the home page. The chosen
+    // one is stored on the ticket and steers the AI; people can still talk
+    // about anything.
+    'modules' => ['wellbeing', 'parenting', 'money', 'career'],
+
+    // Reference notes the AI draws on (resources/knowledge/<module>/*.md).
+    // Each note must be checked by a qualified person before launch; set
+    // AISA_KNOWLEDGE_REVIEWED=true once every note says "reviewed: true".
+    'knowledge' => [
+        'path' => resource_path('knowledge'),
+        'max_notes' => (int) env('AISA_KNOWLEDGE_MAX_NOTES', 4),
+        'reviewed' => (bool) env('AISA_KNOWLEDGE_REVIEWED', false),
     ],
 
     // OPEN DECISION: name of the AI assistant. Must not be "Aisa".
@@ -81,6 +107,9 @@ return [
         'contact_per_hour' => 5,
     ],
 
-    'categories' => ['relationship', 'family', 'work', 'grief', 'growth', 'other'],
+    'categories' => [
+        'relationship', 'family', 'parenting', 'womens_health', 'money', 'business',
+        'career', 'education', 'work', 'grief', 'growth', 'other',
+    ],
     'urgency_levels' => ['low', 'medium', 'high', 'critical'],
 ];

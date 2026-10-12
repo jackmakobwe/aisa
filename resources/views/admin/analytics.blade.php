@@ -67,6 +67,9 @@
         <h2 id="cat-heading" class="text-xl">Topics</h2>
         <p class="mb-4 text-xs text-ink-muted">AI-suggested or responder-confirmed category.</p>
         <x-admin.bar-list :data="$categories" />
+        <h3 class="mt-6 text-base">Starting area</h3>
+        <p class="mb-4 text-xs text-ink-muted">What people chose on the home page.</p>
+        <x-admin.bar-list :data="$modules" :labels="collect(config('aisa.modules'))->mapWithKeys(fn ($m) => [$m => __('home.modules.'.$m.'.title', [], 'en')])->all() + ['none' => 'None chosen']" />
     </section>
     <section class="card" aria-labelledby="lang-heading">
         <h2 id="lang-heading" class="text-xl">Languages</h2>

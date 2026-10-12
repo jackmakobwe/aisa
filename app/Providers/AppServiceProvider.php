@@ -11,7 +11,9 @@ use App\Models\Ticket;
 use App\Models\User;
 use App\Services\Ai\AiProvider;
 use App\Services\Ai\AnthropicProvider;
+use App\Services\Ai\KnowledgeBase;
 use App\Services\Ai\MockProvider;
+use App\Services\Ai\OllamaProvider;
 use App\Services\LaunchReadiness;
 use App\Session\PrivacyDatabaseSessionHandler;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -48,6 +50,16 @@ class AppServiceProvider extends ServiceProvider
                 );
             }
 
+            if ($config['provider'] === 'ollama') {
+                return new OllamaProvider(
+                    url: $config['ollama']['url'],
+                    model: $config['ollama']['model'],
+                    timeout: $config['ollama']['timeout'],
+                    context: $config['ollama']['context'],
+                    keepAlive: (string) $config['ollama']['keep_alive'],
+                );
+            }
+
             if ($config['provider'] === 'mock') {
                 if ($app->isProduction()) {
                     throw new RuntimeException('The mock AI provider cannot be used in production.');
@@ -58,6 +70,8 @@ class AppServiceProvider extends ServiceProvider
 
             throw new RuntimeException("Unknown AISA_AI_PROVIDER [{$config['provider']}].");
         });
+
+        $this->app->singleton(KnowledgeBase::class, fn () => new KnowledgeBase(config('aisa.knowledge.path')));
     }
 
     public function boot(): void
@@ -110,6 +124,8 @@ class AppServiceProvider extends ServiceProvider
             $notices = [];
             if (config('aisa.ai.provider') === 'mock') {
                 $notices[] = __('ui.dev_mock');
+            } elseif (config('aisa.ai.provider') === 'ollama') {
+                $notices[] = __('ui.dev_local_model');
             }
             if (! CrisisResource::verified()->exists()) {
                 $notices[] = __('ui.dev_contacts');

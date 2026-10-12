@@ -17,10 +17,17 @@ class MockProvider implements AiProvider
 
     public const MARKER_SW = '[Jibu la majaribio — si jibu halisi la AI]';
 
+    // Checked in order: the first category with a matching word wins.
     private const CATEGORY_WORDS = [
+        'womens_health' => ['pregnant', 'pregnancy', 'mimba', 'ujauzito', 'mjamzito', 'period', 'hedhi', 'contraception'],
+        'parenting' => ['child', 'children', 'baby', 'toddler', 'son', 'daughter', 'mtoto', 'watoto', 'mwanangu', 'parenting', 'malezi'],
+        'business' => ['business', 'biashara', 'mtaji', 'capital', 'customers', 'wateja'],
+        'money' => ['money', 'budget', 'bajeti', 'salary', 'mshahara', 'pesa', 'save', 'akiba', 'debt', 'deni', 'loan', 'mkopo', 'scam', 'utapeli'],
+        'education' => ['school', 'exam', 'exams', 'study', 'shule', 'mtihani', 'chuo', 'university'],
+        'career' => ['career', 'cv', 'interview', 'usaili', 'ajira', 'internship'],
         'relationship' => ['boyfriend', 'girlfriend', 'partner', 'husband', 'wife', 'marriage', 'mpenzi', 'mume', 'mke', 'ndoa', 'relationship', 'uhusiano'],
         'family' => ['mother', 'father', 'parents', 'family', 'mama', 'baba', 'wazazi', 'familia', 'ndugu', 'in-laws', 'wakwe'],
-        'work' => ['job', 'work', 'boss', 'salary', 'money', 'career', 'kazi', 'bosi', 'mshahara', 'pesa', 'biashara'],
+        'work' => ['job', 'work', 'boss', 'kazi', 'bosi'],
         'grief' => ['died', 'death', 'funeral', 'loss', 'lost', 'amefariki', 'kifo', 'msiba', 'mazishi', 'alifariki'],
         'growth' => ['confidence', 'goals', 'future', 'decision', 'purpose', 'kujiamini', 'malengo', 'uamuzi', 'ndoto'],
     ];

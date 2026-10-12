@@ -21,7 +21,7 @@ class AnalyticsController extends Controller
         $tz = config('aisa.display_timezone');
 
         $tickets = Ticket::where('created_at', '>=', $since)
-            ->get(['id', 'created_at', 'category', 'language', 'help_mode', 'human_requested_at', 'first_human_reply_at', 'return_visits', 'rating', 'code_hash']);
+            ->get(['id', 'created_at', 'category', 'module', 'language', 'help_mode', 'human_requested_at', 'first_human_reply_at', 'return_visits', 'rating', 'code_hash']);
 
         $volume = [];
         for ($d = $since->copy(); $d->lte(now()); $d->addDay()) {
@@ -51,6 +51,7 @@ class AnalyticsController extends Controller
             'total' => $tickets->count(),
             'volume' => $volume,
             'categories' => $this->counts($tickets->pluck('category'), config('aisa.categories')),
+            'modules' => $this->counts($tickets->map(fn ($t) => $t->module ?? 'none'), [...config('aisa.modules'), 'none']),
             'languages' => $this->counts($tickets->pluck('language'), ['en', 'sw', 'mixed']),
             'humanRequests' => $tickets->where('help_mode', 'human')->count(),
             'responseCount' => $responseHours->count(),

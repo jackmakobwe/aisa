@@ -48,6 +48,8 @@ import {
     GraduationCap,
     Heart,
     House,
+    Baby,
+    Wallet,
 } from 'lucide';
 
 const icons = {
@@ -55,7 +57,7 @@ const icons = {
     Flag, Globe, HeartHandshake, Inbox, Info, KeyRound, LayoutDashboard, LifeBuoy, Lock, LogOut, Menu,
     MessageCircle, NotebookPen, Phone, Printer, RotateCw, Search, Send, Settings, ShieldAlert, ShieldCheck,
     Sparkles, Star, Trash2, UserRound, Users, X, ChartColumn, BookmarkCheck, MailWarning,
-    MessagesSquare, Sprout, Flower2, CloudRain, GraduationCap, Heart, House,
+    MessagesSquare, Sprout, Flower2, CloudRain, GraduationCap, Heart, House, Baby, Wallet,
 };
 
 export function renderIcons() {

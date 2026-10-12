@@ -143,6 +143,8 @@
                     <dt class="text-ink-muted">Suggested topic</dt><dd>{{ \App\Support\Format::label($analysis->category) }}</dd>
                     <dt class="text-ink-muted">Suggested urgency</dt><dd>{{ \App\Support\Format::label($analysis->urgency) }}</dd>
                     <dt class="text-ink-muted">Model risk flag</dt><dd>{{ $analysis->risk_flag ? 'Yes: '.collect($analysis->risk_types)->implode(', ') : 'No' }}</dd>
+                    <dt class="text-ink-muted">Started from</dt><dd>{{ $ticket->module ? __("home.modules.{$ticket->module}.title", [], 'en') : 'Home page (no area chosen)' }}</dd>
+                    <dt class="text-ink-muted">Reference notes</dt><dd class="break-words">{{ collect($analysis->knowledge_refs)->implode(', ') ?: 'None' }}</dd>
                 </dl>
                 <p class="mt-2 text-xs text-ink-muted">Suggestions only · {{ $analysis->provider }} {{ $analysis->model }} · prompt {{ $analysis->prompt_version }}</p>
             @else

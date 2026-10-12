@@ -24,6 +24,8 @@ class UserMessageRequest extends FormRequest
     {
         return [
             'message' => ['required', 'string', 'min:2', 'max:'.config('aisa.limits.message_max_chars')],
+            // Optional guidance area chosen on the home page (first message only).
+            'module' => ['nullable', 'string', 'in:'.implode(',', config('aisa.modules'))],
         ];
     }
 

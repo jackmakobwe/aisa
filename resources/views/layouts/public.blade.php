@@ -124,6 +124,10 @@
                 <p class="mt-4 text-ink-muted">{{ __('ui.disclaimer') }}</p>
             </div>
         </div>
+        {{-- Room so the floating chat button never covers the last footer line. --}}
+        <div class="h-16" aria-hidden="true"></div>
     </footer>
+
+    <x-chat-launcher />
 </body>
 </html>

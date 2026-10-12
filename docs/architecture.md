@@ -40,7 +40,7 @@ flowchart LR
 | Validation | `app/Http/Requests` | `UserMessageRequest`, `ConsentRequest`, `ChooseHelpRequest`, `ContactRequest`, `Admin/SendReplyRequest` |
 | Controllers | `app/Http/Controllers`, `.../Admin` | Thin HTTP handling only |
 | Services | `app/Services` | Business logic (below) |
-| AI | `app/Services/Ai` | `AiProvider` interface, `AnthropicProvider`, `MockProvider`, `Prompts`, `ConversationAi` |
+| AI | `app/Services/Ai` | `AiProvider` interface, `AnthropicProvider`, `MockProvider`, `Prompts`, `ConversationAi`, `KnowledgeBase` (reference notes in `resources/knowledge`) |
 | Safety | `app/Services/Safety` | `RuleBasedSafetyClassifier`, `SafetyAssessment`, `SafetyService`, `SafetyNotifier` |
 | Models | `app/Models` | Eloquent models with `encrypted` casts for personal text |
 | Views | `resources/views` | `layouts/`, `public/`, `admin/`, `components/` |
@@ -50,7 +50,8 @@ flowchart LR
 ## Key services
 
 - **ConversationService**: start a conversation after consent, handle each user message, run the safety rules first, then the AI turn, record the choice of help, issue codes, generate drafts.
-- **ConversationAi**: builds model requests from ticket history (newest 30 messages, in order, without names or codes), enforces the daily cost cap, and validates every field the model returns against allowed values.
+- **ConversationAi**: builds model requests from ticket history (newest 30 messages, in order, without names or codes) plus the chosen guidance area and the matching reference notes, enforces the daily cost cap, and validates every field the model returns against allowed values.
+- **KnowledgeBase**: loads the reference notes from `resources/knowledge` and picks the best matches for the person's latest messages (local keyword retrieval, English and Kiswahili).
 - **SafetyService**: merges rule and model assessments conservatively, opens or escalates one flag per conversation, raises urgency, and triggers alerts. It never resolves a flag; only a person can, in the dashboard.
 - **TicketCredentialService**: 28-symbol Crockford base32 codes (140 bits from `random_int`), stored only as HMAC-SHA256 with a server-side pepper.
 - **TicketAccess**: which ticket the current (encrypted, server-side) session may read. Ticket ids never appear in public URLs.
@@ -84,7 +85,7 @@ app/
   Jobs/GenerateDraftReply.php
   Models/                  Ticket, Message, AiAnalysis, SafetyFlag, ConsentRecord, User, ...
   Services/                ConversationService, TicketCredentialService, TicketAccess, ...
-  Services/Ai/             AiProvider, AnthropicProvider, MockProvider, Prompts, ConversationAi
+  Services/Ai/             AiProvider, AnthropicProvider, MockProvider, Prompts, ConversationAi, KnowledgeBase
   Services/Safety/         RuleBasedSafetyClassifier, SafetyService, SafetyNotifier
   Session/PrivacyDatabaseSessionHandler.php
 config/aisa.php            all Aisa settings and open decisions

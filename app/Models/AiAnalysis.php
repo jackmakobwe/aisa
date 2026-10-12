@@ -18,7 +18,7 @@ class AiAnalysis extends Model
 
     protected $fillable = [
         'ticket_id', 'message_id', 'kind', 'category', 'urgency', 'risk_flag', 'risk_types',
-        'detected_language', 'summary', 'draft_reply', 'provider', 'model', 'prompt_version',
+        'detected_language', 'summary', 'knowledge_refs', 'draft_reply', 'provider', 'model', 'prompt_version',
         'input_tokens', 'output_tokens', 'latency_ms', 'error',
     ];
 
@@ -27,6 +27,7 @@ class AiAnalysis extends Model
         return [
             'risk_flag' => 'boolean',
             'risk_types' => 'array',
+            'knowledge_refs' => 'array',
             'summary' => 'encrypted',
             'draft_reply' => 'encrypted',
         ];

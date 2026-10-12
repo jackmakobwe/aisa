@@ -5,7 +5,7 @@
 return [
     'eyebrow' => 'Faragha · Hakuna akaunti',
     'heading' => 'Ni jambo gani ungependa kuzungumzia?',
-    'subheading' => 'Eleza kinachokusumbua kwa maneno yako mwenyewe, kwa Kiswahili au Kiingereza. Huhitaji kufungua akaunti wala kutaja jina lako.',
+    'subheading' => 'Mahali pa faragha, kwa lugha mbili, pa kupata msaada, kujifunza na kufanya maamuzi ya kila siku: hisia na mahusiano, malezi, pesa na biashara, shule na kazi. Andika kwa Kiswahili au Kiingereza. Huhitaji akaunti wala kutaja jina lako.',
     'hero_points' => [
         ['icon' => 'sparkles', 'text' => 'Msaada wa AI papo hapo'],
         ['icon' => 'heart-handshake', 'text' => 'Jibu binafsi kutoka kwa Aisa'],
@@ -18,16 +18,70 @@ return [
     'have_code' => 'Tayari una namba ya siri?',
     'check_code' => 'Angalia namba yako',
 
-    'topics_eyebrow' => 'Hauko peke yako',
-    'topics_heading' => 'Chochote kinachokusumbua, unaweza kukizungumzia hapa',
-    'topics' => [
-        ['icon' => 'heart', 'title' => 'Mahusiano na mapenzi', 'body' => 'Uaminifu, ugomvi, kuvunjika moyo, au uhusiano unaohisi si sawa.'],
-        ['icon' => 'house', 'title' => 'Familia na nyumbani', 'body' => 'Migogoro, matarajio, kuwatunza wengine, au kuhisi husikilizwi nyumbani.'],
-        ['icon' => 'cloud-rain', 'title' => 'Msongo, wasiwasi na huzuni', 'body' => 'Kuhisi wasiwasi, kuzidiwa, huzuni, au kutojisikia kama wewe.'],
-        ['icon' => 'graduation-cap', 'title' => 'Shule, kazi na pesa', 'body' => 'Mitihani, shinikizo, kazi, wasiwasi wa pesa na mipango ya baadaye.'],
-        ['icon' => 'sprout', 'title' => 'Kukua na kujithamini', 'body' => 'Mtazamo wa mwili, kujiamini, urafiki na mabadiliko ya kuwa msichana au mvulana mkubwa.'],
-        ['icon' => 'flower-2', 'title' => 'Msiba na majonzi', 'body' => 'Kumpoteza mtu unayempenda, au mabadiliko makubwa ambayo ni vigumu kuyakubali.'],
+    'module_legend' => 'Ungependa msaada kuhusu nini?',
+    'module_optional' => 'Si lazima',
+    'module_any' => 'Chochote',
+
+    'modules_eyebrow' => 'Msaidizi wako binafsi wa ushauri',
+    'modules_heading' => 'Msaada, kujifunza na maamuzi ya kila siku, mahali pamoja pa faragha',
+    'modules_body' => 'Chagua pa kuanzia, au gusa mfano wa swali. Unaweza kuzungumzia jambo lolote.',
+    'module_start' => 'Anza hapa',
+    'module_examples' => 'Jaribu kuuliza',
+    'modules' => [
+        'wellbeing' => [
+            'icon' => 'heart',
+            'title' => 'Ustawi wa kihisia',
+            'short' => 'Hisia',
+            'body' => 'Zungumza, tafakari na pata hatua zinazofuata: msongo, upweke, msiba, mahusiano, familia na kujiamini.',
+            'placeholder' => 'Kwa mfano: Nimekuwa na msongo wa mawazo kuhusu uhusiano wangu na sijui nifanye nini…',
+            'examples' => [
+                'Najisikia mpweke tangu nihamie mji mpya. Nitapataje marafiki?',
+                'Mpenzi wangu anakagua simu yangu kila mara. Je, hiyo ni kawaida?',
+                'Nina mawazo mengi kiasi kwamba siwezi kulala.',
+            ],
+        ],
+        'parenting' => [
+            'icon' => 'baby',
+            'title' => 'Malezi na familia',
+            'short' => 'Malezi',
+            'body' => 'Ujauzito na umama, ukuaji wa mtoto, nidhamu chanya, na kusawazisha kazi, familia na wewe mwenyewe.',
+            'placeholder' => 'Kwa mfano: Mtoto wangu wa miaka 4 analia na kukasirika kila siku na uvumilivu unaniishia…',
+            'examples' => [
+                'Nitamfundishaje mtoto wangu nidhamu bila kumpiga?',
+                'Nina mimba ya miezi 5. Ni dalili gani zinaonyesha niende kliniki mara moja?',
+                'Nitaongeaje na binti yangu kijana kuhusu mahusiano?',
+            ],
+        ],
+        'money' => [
+            'icon' => 'wallet',
+            'title' => 'Pesa na biashara',
+            'short' => 'Pesa',
+            'body' => 'Bajeti, kuweka akiba kwa kipato chochote, madeni, kutambua utapeli, na kuanzisha au kukuza biashara ndogo.',
+            'placeholder' => 'Kwa mfano: Nina mshahara wa TSh 300,000 kwa mwezi, nigawanyeje matumizi yangu?',
+            'examples' => [
+                'Nina mshahara wa TSh 300,000 kwa mwezi, nigawanyeje matumizi yangu?',
+                'Nitaanzishaje biashara ndogo kwa mtaji wa TSh 100,000?',
+                'Nitajuaje kama fursa ya uwekezaji mtandaoni ni utapeli?',
+            ],
+        ],
+        'career' => [
+            'icon' => 'graduation-cap',
+            'title' => 'Vijana na kazi',
+            'short' => 'Kazi',
+            'body' => 'Shule na mitihani, kuchagua kozi, wasifu (CV) na usaili, ujuzi wa kazini na wa kidijitali, na fursa za mtandaoni.',
+            'placeholder' => 'Kwa mfano: Nimemaliza kidato cha nne na sijui nichague kozi gani…',
+            'examples' => [
+                'Nimefeli mitihani. Nina njia gani sasa?',
+                'Nitaandikaje CV wakati sina uzoefu wa kazi?',
+                'Ni ujuzi gani wa kidijitali unaweza kunisaidia kupata kazi?',
+            ],
+        ],
     ],
+
+    'example_heading' => 'Mfano: jinsi msaidizi anavyosaidia',
+    'example_user' => 'Najisikia nimekwama kifedha, na sijui nianzie wapi.',
+    'example_ai' => 'Inaweza kuwa vigumu sana pesa zinapokuwa chache. Tunaweza kuanza na kipato chako, matumizi yako ya lazima na malengo yako, kisha tutengeneze mpango unaowezekana pamoja. Huhitaji kutaja jina lako wala taarifa za akaunti yoyote.',
+    'example_note' => 'Mfano wa mtindo wa jibu. Msaidizi wa AI si binadamu, mshauri nasaha, daktari wala mshauri wa fedha.',
 
     'talk_heading' => 'Ongea na Aisa',
     'talk_body' => 'Wakati mwingine unataka kusikia kutoka kwa binadamu halisi. Omba jibu binafsi na Aisa atasoma mazungumzo yako na kukujibu yeye mwenyewe.',

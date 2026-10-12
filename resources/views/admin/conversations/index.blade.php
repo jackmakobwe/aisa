@@ -64,7 +64,10 @@
                         @endif
                     </td>
                     <td class="max-w-xs text-ink-soft">{{ \Illuminate\Support\Str::limit($ticket->latestTurnAnalysis?->summary, 110) ?: '—' }}</td>
-                    <td>{{ \App\Support\Format::label($ticket->category) }}</td>
+                    <td>
+                        {{ \App\Support\Format::label($ticket->category) }}
+                        @if ($ticket->module)<span class="mt-1 block text-xs text-ink-muted">via {{ __("home.modules.{$ticket->module}.short", [], 'en') }}</span>@endif
+                    </td>
                     <td><x-admin.badge type="language" :value="$ticket->language" /></td>
                     <td><x-admin.badge type="urgency" :value="$ticket->urgency ?? 'low'" /></td>
                     <td>

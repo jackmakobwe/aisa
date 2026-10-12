@@ -3,7 +3,7 @@
 return [
     'eyebrow' => 'Private · No account needed',
     'heading' => 'What would you like to talk about?',
-    'subheading' => 'Share what is on your mind, in your own words, in English or Kiswahili. You do not need to create an account or give your name.',
+    'subheading' => 'A welcoming, bilingual space for support, learning and everyday decisions: feelings and relationships, parenting, money and business, school and career. Write in English or Kiswahili. You do not need an account or your name.',
     'hero_points' => [
         ['icon' => 'sparkles', 'text' => 'AI support, straight away'],
         ['icon' => 'heart-handshake', 'text' => 'A personal reply from Aisa'],
@@ -16,16 +16,70 @@ return [
     'have_code' => 'Already have a code?',
     'check_code' => 'Check your code',
 
-    'topics_eyebrow' => 'You are not alone',
-    'topics_heading' => 'Whatever is on your mind, you can talk about it here',
-    'topics' => [
-        ['icon' => 'heart', 'title' => 'Relationships & love', 'body' => 'Trust, arguments, heartbreak, or a relationship that does not feel right.'],
-        ['icon' => 'house', 'title' => 'Family & home', 'body' => 'Conflict, expectations, caring for others, or feeling unheard at home.'],
-        ['icon' => 'cloud-rain', 'title' => 'Stress, worry & low mood', 'body' => 'Feeling anxious, overwhelmed, sad, or not like yourself.'],
-        ['icon' => 'graduation-cap', 'title' => 'School, work & money', 'body' => 'Exams, pressure, jobs, money worries and plans for the future.'],
-        ['icon' => 'sprout', 'title' => 'Growing up & self-esteem', 'body' => 'Body image, confidence, friendships and the changes of becoming a young woman or man.'],
-        ['icon' => 'flower-2', 'title' => 'Loss & grief', 'body' => 'Losing someone you love, or a big change that is hard to accept.'],
+    'module_legend' => 'What would you like help with?',
+    'module_optional' => 'Optional',
+    'module_any' => 'Anything',
+
+    'modules_eyebrow' => 'Your personal guidance assistant',
+    'modules_heading' => 'Support, learning and everyday decisions, in one private place',
+    'modules_body' => 'Choose where to start, or tap an example question. You can always talk about anything.',
+    'module_start' => 'Start with this',
+    'module_examples' => 'Try asking',
+    'modules' => [
+        'wellbeing' => [
+            'icon' => 'heart',
+            'title' => 'Emotional wellbeing',
+            'short' => 'Feelings',
+            'body' => 'Talk, reflect and find next steps: stress, loneliness, grief, relationships, family and confidence.',
+            'placeholder' => 'For example: I have been feeling stressed about my relationship and I do not know what to do…',
+            'examples' => [
+                'I feel lonely since I moved to a new city. How can I make friends?',
+                'My partner checks my phone all the time. Is that normal?',
+                'I have so much on my mind that I cannot sleep.',
+            ],
+        ],
+        'parenting' => [
+            'icon' => 'baby',
+            'title' => 'Parenting & family',
+            'short' => 'Parenting',
+            'body' => 'Pregnancy and motherhood, child development, positive discipline, and balancing work, family and yourself.',
+            'placeholder' => 'For example: My 4-year-old has tantrums every day and I am losing patience…',
+            'examples' => [
+                'How can I discipline my child without beating them?',
+                'I am 5 months pregnant. Which signs mean I should go to the clinic straight away?',
+                'How do I talk to my teenage daughter about relationships?',
+            ],
+        ],
+        'money' => [
+            'icon' => 'wallet',
+            'title' => 'Money & business',
+            'short' => 'Money',
+            'body' => 'Budgeting, saving on any income, debt, spotting scams, and starting or growing a small business.',
+            'placeholder' => 'For example: I earn TSh 300,000 a month. How should I divide it?',
+            'examples' => [
+                'I earn TSh 300,000 a month. How should I divide my spending?',
+                'How can I start a small business with TSh 100,000?',
+                'How can I tell whether an online investment opportunity is a scam?',
+            ],
+        ],
+        'career' => [
+            'icon' => 'graduation-cap',
+            'title' => 'Youth & career',
+            'short' => 'Career',
+            'body' => 'School and exams, choosing a course, CVs and interviews, workplace and digital skills, and online opportunities.',
+            'placeholder' => 'For example: I finished Form Four and I do not know which course to choose…',
+            'examples' => [
+                'I failed my exams. What options do I have now?',
+                'How do I write a CV when I have no work experience?',
+                'Which digital skills can help me find work?',
+            ],
+        ],
     ],
+
+    'example_heading' => 'Example: how the assistant helps',
+    'example_user' => 'I feel stuck financially, and I don\'t know where to start.',
+    'example_ai' => 'It can feel overwhelming when money is tight. We can start with your income, your essential costs and your goals, then make a realistic plan together. You don\'t need to share your name or any account details.',
+    'example_note' => 'An example of the style of reply. The AI assistant is not a person, a counsellor, a doctor or a financial adviser.',
 
     'talk_heading' => 'Talk to Aisa',
     'talk_body' => 'Sometimes you want to hear from a real person. Ask for a personal reply and Aisa will read your conversation and write back to you herself.',

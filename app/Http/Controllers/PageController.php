@@ -6,15 +6,27 @@ use App\Models\CrisisResource;
 use App\Services\ArticleLibrary;
 use App\Services\LaunchReadiness;
 use App\Services\SettingsService;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class PageController extends Controller
 {
-    public function home(ArticleLibrary $articles): View
+    /**
+     * ?topic=money preselects a guidance area; &ask=1 also fills in one of
+     * its example questions, so the entry points work without JavaScript.
+     */
+    public function home(Request $request, ArticleLibrary $articles): View
     {
+        $module = in_array($request->query('topic'), config('aisa.modules'), true) ? $request->query('topic') : null;
+        $example = $module !== null && is_string($request->query('ask'))
+            ? (__("home.modules.{$module}.examples")[(int) $request->query('ask')] ?? null)
+            : null;
+
         return view('public.home', [
             'articles' => $articles->latest(config('articles.home_count')),
             'hasAisaPhoto' => file_exists(public_path('images/aisa.jpg')),
+            'module' => $module,
+            'example' => is_string($example) ? $example : null,
         ]);
     }
 

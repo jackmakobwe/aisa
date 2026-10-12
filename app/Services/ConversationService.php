@@ -35,9 +35,9 @@ class ConversationService
      *
      * @return array{0: Ticket, 1: TurnReport}
      */
-    public function start(string $locale, string $ageGroup, string $text): array
+    public function start(string $locale, string $ageGroup, string $text, ?string $module = null): array
     {
-        $ticket = DB::transaction(function () use ($locale, $ageGroup) {
+        $ticket = DB::transaction(function () use ($locale, $ageGroup, $module) {
             $consent = ConsentRecord::create([
                 'consent_version' => config('aisa.consent_version'),
                 'locale' => $locale,
@@ -51,6 +51,7 @@ class ConversationService
                 'consent_record_id' => $consent->id,
                 'locale' => $locale,
                 'is_minor' => $ageGroup === 'minor',
+                'module' => in_array($module, config('aisa.modules'), true) ? $module : null,
                 'status' => Ticket::STATUS_OPEN,
                 'last_activity_at' => now(),
             ]);
@@ -151,6 +152,7 @@ class ConversationService
                 'risk_types' => $outcome->risk->types,
                 'detected_language' => $outcome->language,
                 'summary' => $outcome->summary,
+                'knowledge_refs' => $outcome->knowledgeIds ?: null,
                 'provider' => $this->ai->provider()->name(),
                 'model' => $outcome->result->model,
                 'prompt_version' => config('aisa.ai.prompt_version'),
@@ -233,6 +235,7 @@ class ConversationService
             'kind' => AiAnalysis::KIND_DRAFT,
             'risk_flag' => $outcome->sensitive,
             'summary' => $outcome->notes,
+            'knowledge_refs' => $outcome->knowledgeIds ?: null,
             'draft_reply' => $outcome->draft,
             'provider' => $this->ai->provider()->name(),
             'model' => $outcome->result->model,

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\CrisisResource;
 use App\Models\User;
+use App\Services\Ai\KnowledgeBase;
 
 /**
  * Release blockers from the project document (Gate A and section 15).
@@ -23,7 +24,10 @@ class LaunchReadiness
         'approval.assistant_name' => 'AI assistant name confirmed',
     ];
 
-    public function __construct(private readonly SettingsService $settings) {}
+    public function __construct(
+        private readonly SettingsService $settings,
+        private readonly KnowledgeBase $knowledge,
+    ) {}
 
     /**
      * @return list<array{key: string, ok: bool, label: string}>
@@ -52,6 +56,9 @@ class LaunchReadiness
             'Safety alerts go to a real mailbox (AISA_SAFETY_ALERT_EMAILS and a real mailer)');
         $add('admin.two_factor', User::where('is_active', true)->whereNotNull('two_factor_confirmed_at')->exists(),
             'At least one active responder has two-factor authentication set up');
+
+        $add('knowledge.reviewed', config('aisa.knowledge.reviewed') && $this->knowledge->allReviewed(),
+            'Every AI reference note in resources/knowledge is reviewed by a qualified person (reviewed: true, AISA_KNOWLEDGE_REVIEWED=true)');
 
         foreach (self::APPROVALS as $key => $label) {
             $add($key, (bool) $this->settings->get($key), $label);

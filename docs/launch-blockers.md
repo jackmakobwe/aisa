@@ -17,6 +17,7 @@ In production, new conversations stay closed until each of these passes.
 | 9 | Real alert mailbox and mailer | Developer | `AISA_SAFETY_ALERT_EMAILS`, `MAIL_MAILER` |
 | 10 | At least one responder with 2FA | Aisa | First sign-in |
 | 11 | Production hardening: `APP_DEBUG=false`, HTTPS URL, secure cookies | Developer | [deployment.md](deployment.md) |
+| 12 | **AI reference notes reviewed** (60 drafts in `resources/knowledge`: the service itself, wellbeing, parenting and health, money and business, career) | Counsellor, health worker, financial educator | Correct each note, set `reviewed: true`, then `AISA_KNOWLEDGE_REVIEWED=true`. Check with `php artisan aisa:knowledge` |
 
 Also required before public launch, but not checked automatically: tested backup restore, monitoring and alerts, a monthly budget, an accessibility review, and an independent security review.
 
@@ -33,6 +34,8 @@ Also required before public launch, but not checked automatically: tested backup
 | Audit log retention | Kept indefinitely | — |
 | Quick exit forgets remembered code | Yes | `AISA_QUICK_EXIT_FORGETS_DEVICE` |
 | AI provider and model | Anthropic, `claude-opus-5-5`, effort `medium` | `.env` |
+| Audience and country scope (Tanzania first, or international from the start) | Tanzania first: Kiswahili, TSh examples, Tanzanian regulators and referrals | `Prompts`, `resources/knowledge`, crisis contacts |
+| Mobile app, WhatsApp and push notifications (Firebase) | Website first; later phases | — |
 
 ## Content still to provide
 

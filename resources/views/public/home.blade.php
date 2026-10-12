@@ -27,12 +27,25 @@
         <div id="start" class="scroll-mt-24 rounded-[1.5rem] border border-line bg-white p-5 shadow-[0_20px_50px_-20px_rgba(34,40,43,0.25)] sm:p-7">
             <form method="POST" action="{{ route('start') }}" x-data="draftKeeper" x-on:submit="clear">
                 @csrf
+                @php($chosen = old('module', $module))
+                <fieldset class="mb-5">
+                    <legend class="field-label">{{ __('home.module_legend') }} <span class="font-normal text-ink-muted">({{ __('home.module_optional') }})</span></legend>
+                    <div class="flex flex-wrap gap-2">
+                        @foreach (['' => ['icon' => 'message-circle', 'short' => __('home.module_any')]] + __('home.modules') as $key => $option)
+                            <label class="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-line px-3.5 py-1.5 text-sm font-medium text-ink-soft transition-colors hover:border-sage has-checked:border-forest has-checked:bg-sage-light has-checked:text-forest-dark has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-forest">
+                                <input type="radio" name="module" value="{{ $key }}" class="sr-only" @checked((string) $chosen === (string) $key)>
+                                <i data-lucide="{{ $option['icon'] }}" class="h-4 w-4"></i>{{ $option['short'] }}
+                            </label>
+                        @endforeach
+                    </div>
+                </fieldset>
+
                 <label for="message" class="field-label text-lg">{{ __('home.textarea_label') }}</label>
                 <textarea id="message" name="message" rows="6" required minlength="2" maxlength="{{ config('aisa.limits.message_max_chars') }}"
                     x-ref="input" x-on:input="save"
                     class="field min-h-40 resize-y text-lg leading-relaxed"
-                    placeholder="{{ __('home.placeholder') }}"
-                    aria-describedby="message-hint @error('message') message-error @enderror">{{ old('message') }}</textarea>
+                    placeholder="{{ $module ? __("home.modules.{$module}.placeholder") : __('home.placeholder') }}"
+                    aria-describedby="message-hint @error('message') message-error @enderror">{{ old('message', $example) }}</textarea>
                 @error('message')
                     <p id="message-error" class="field-error">{{ $message }}</p>
                 @enderror
@@ -54,25 +67,51 @@
     </div>
 </section>
 
-{{-- What people talk about. --}}
-<section class="container-page py-16" aria-labelledby="topics-heading">
+{{-- Guidance areas: each card preselects its area and can fill in an example question. --}}
+<section class="container-page py-16" aria-labelledby="modules-heading">
     <div class="max-w-2xl">
-        <p class="text-sm font-semibold tracking-wide text-forest uppercase">{{ __('home.topics_eyebrow') }}</p>
-        <h2 id="topics-heading" class="mt-2 text-3xl leading-tight sm:text-4xl">{{ __('home.topics_heading') }}</h2>
+        <p class="text-sm font-semibold tracking-wide text-forest uppercase">{{ __('home.modules_eyebrow') }}</p>
+        <h2 id="modules-heading" class="mt-2 text-3xl leading-tight sm:text-4xl">{{ __('home.modules_heading') }}</h2>
+        <p class="mt-3 text-ink-soft">{{ __('home.modules_body') }}</p>
     </div>
-    <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        @foreach (__('home.topics') as $topic)
-            <li class="card flex gap-4 transition-colors hover:border-sage">
-                <span class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-sage-light text-forest">
-                    <i data-lucide="{{ $topic['icon'] }}" class="h-6 w-6"></i>
+    <ul class="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        @foreach (__('home.modules') as $key => $item)
+            <li class="card flex flex-col transition-colors hover:border-sage">
+                <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-sage-light text-forest">
+                    <i data-lucide="{{ $item['icon'] }}" class="h-6 w-6"></i>
                 </span>
-                <div>
-                    <h3 class="font-sans text-lg font-semibold">{{ $topic['title'] }}</h3>
-                    <p class="mt-1 text-[0.95rem] text-ink-soft">{{ $topic['body'] }}</p>
-                </div>
+                <h3 class="mt-4 font-sans text-lg font-semibold">{{ $item['title'] }}</h3>
+                <p class="mt-1 text-[0.95rem] text-ink-soft">{{ $item['body'] }}</p>
+                <p class="mt-4 text-xs font-semibold tracking-wide text-ink-muted uppercase">{{ __('home.module_examples') }}</p>
+                <ul class="mt-2 flex-1 space-y-2">
+                    @foreach ($item['examples'] as $i => $question)
+                        <li>
+                            <a href="{{ route('home', ['topic' => $key, 'ask' => $i]) }}#start" class="flex gap-2 text-[0.95rem] leading-snug">
+                                <i data-lucide="message-circle" class="mt-0.5 h-4 w-4 shrink-0"></i><span>{{ $question }}</span>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+                <a href="{{ route('home', ['topic' => $key]) }}#start" class="btn-secondary btn-sm mt-5 self-start">
+                    {{ __('home.module_start') }}<i data-lucide="arrow-right" class="h-4 w-4"></i>
+                </a>
             </li>
         @endforeach
     </ul>
+
+    <figure class="mx-auto mt-12 max-w-2xl rounded-[1.5rem] border border-line bg-sand/50 p-5 sm:p-7">
+        <figcaption class="mb-4 text-sm font-semibold tracking-wide text-forest uppercase">{{ __('home.example_heading') }}</figcaption>
+        <div class="flex flex-col gap-3">
+            <div class="bubble-user">{{ __('home.example_user') }}</div>
+            <div>
+                <span class="mb-1 flex items-center gap-1.5 text-xs font-semibold text-sky">
+                    <i data-lucide="sparkles" class="h-3.5 w-3.5"></i>{{ __('chat.ai_label', ['name' => config('aisa.assistant_name')]) }}
+                </span>
+                <div class="bubble-ai">{{ __('home.example_ai') }}</div>
+            </div>
+        </div>
+        <p class="mt-4 text-xs text-ink-muted">{{ __('home.example_note') }}</p>
+    </figure>
 </section>
 
 {{-- Talk to Aisa panel. Light text on forest green; links override the default link colour and focus ring. --}}

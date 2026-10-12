@@ -54,10 +54,16 @@ Tracks the project document's requirements (IDs from sections 7 and 8). ✅ done
 - [x] Launch gate + `aisa:launch-check`
 - [x] Retention pruning (scheduled)
 - [x] Mock provider clearly labelled; refused in production
-- [x] 182 automated tests passing
+- [x] 203 automated tests passing
 - [x] Safety evaluation command and shared test set (`aisa:safety-eval`)
 - [x] Automated browser and axe accessibility check (25 pages, 0 violations)
 - [x] Educational articles (6, EN/SW) with topic filter; latest three on the home page
+- [x] Four guidance areas (wellbeing, parenting, money and business, youth and career) as home-page entry points, stored per conversation
+- [x] AI knowledge base (60 bilingual-keyword notes, including a service FAQ) with local retrieval into the prompt; notes used are recorded and shown to responders (`aisa:knowledge`)
+- [x] Prompt for practical guidance: TSh budgets and business plans, scam awareness, positive discipline, pregnancy danger signs, career and job-scam guidance
+- [x] Prompt: core qualities, everyday situations (greetings, "are you human", thanks, abusive messages, homework) and example replies
+- [x] Floating chat button on public pages: continues an open conversation in a panel, or starts one through the normal consent step
+- [ ] Professional review of the AI knowledge notes (`AISA_KNOWLEDGE_REVIEWED`)
 - [ ] Counsellor review of the articles (`AISA_ARTICLES_REVIEWED`)
 - [ ] Native Kiswahili review
 - [ ] Legal review

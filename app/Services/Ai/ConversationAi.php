@@ -15,7 +15,13 @@ use Illuminate\Support\Str;
  */
 class ConversationAi
 {
-    public function __construct(private readonly AiProvider $provider) {}
+    /** How many of the person's latest messages are used to pick reference notes. */
+    private const RETRIEVAL_MESSAGES = 3;
+
+    public function __construct(
+        private readonly AiProvider $provider,
+        private readonly KnowledgeBase $knowledge,
+    ) {}
 
     public function provider(): AiProvider
     {
@@ -35,6 +41,7 @@ class ConversationAi
         }
 
         $aiReplies = $ticket->messages()->where('sender', Message::SENDER_AI)->count();
+        $notes = $this->notesFor($history, $ticket->module);
         $system = Prompts::turnSystem(
             assistantName: config('aisa.assistant_name'),
             repliesSoFar: $aiReplies,
@@ -42,6 +49,8 @@ class ConversationAi
             isMinor: $ticket->is_minor,
             locale: $ticket->locale,
             responseWindowHours: config('aisa.response_window_hours'),
+            module: $ticket->module,
+            notes: $notes,
         );
 
         $result = $this->call($system, $history, Prompts::turnSchema(), 2000);
@@ -71,6 +80,7 @@ class ConversationAi
             suggestHuman: (bool) ($data['suggest_human'] ?? false),
             result: $result,
             isMock: $this->provider->isMock(),
+            knowledgeIds: array_map(fn (KnowledgeNote $n) => $n->id, $notes),
         );
     }
 
@@ -81,12 +91,14 @@ class ConversationAi
      */
     public function draft(Ticket $ticket): DraftOutcome
     {
-        $transcript = collect($this->history($ticket, includeHuman: true))
+        $history = $this->history($ticket, includeHuman: true);
+        $notes = $this->notesFor($history, $ticket->module);
+        $transcript = collect($history)
             ->map(fn ($m) => ($m['role'] === 'user' ? 'Person' : 'Reply').': '.$m['content'])
             ->implode("\n\n");
 
         $result = $this->call(
-            Prompts::draftSystem($ticket->is_minor),
+            Prompts::draftSystem($ticket->is_minor, $notes),
             [['role' => 'user', 'content' => "<conversation>\n{$transcript}\n</conversation>\n\nWrite the draft reply for Aisa."]],
             Prompts::draftSchema(),
             3000,
@@ -102,7 +114,21 @@ class ConversationAi
             sensitive: (bool) ($result->data['sensitive'] ?? true),
             notes: Str::limit(trim((string) ($result->data['notes_for_responder'] ?? '')), 500),
             result: $result,
+            knowledgeIds: array_map(fn (KnowledgeNote $n) => $n->id, $notes),
         );
+    }
+
+    /**
+     * Reference notes matching the person's latest messages.
+     *
+     * @param  list<array{role: string, content: string}>  $history
+     * @return list<KnowledgeNote>
+     */
+    private function notesFor(array $history, ?string $module): array
+    {
+        $recent = array_slice(array_values(array_filter($history, fn ($m) => $m['role'] === 'user')), -self::RETRIEVAL_MESSAGES);
+
+        return $recent === [] ? [] : $this->knowledge->search(implode("\n", array_column($recent, 'content')), $module);
     }
 
     public function recordFailure(Ticket $ticket, ?Message $message, string $kind, string $reason): AiAnalysis
