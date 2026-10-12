@@ -121,9 +121,19 @@
                 </div>
             @endunless
 
+            @php $member = auth('member')->user(); @endphp
             <div class="card p-5">
                 <p class="flex items-center gap-2 font-semibold"><i data-lucide="key-round" class="h-5 w-5 text-forest"></i>{{ __('chat.side_code_title') }}</p>
-                @if ($ticket->hasCode())
+                @if ($ticket->member_id !== null && $member?->id === $ticket->member_id)
+                    <p class="mt-1 text-sm text-ink-soft">{{ __('account.side_saved') }}</p>
+                    <a href="{{ route('account.index') }}" class="btn-secondary btn-sm mt-3 w-full"><i data-lucide="user-round" class="h-4 w-4"></i>{{ __('account.nav_account') }}</a>
+                @elseif ($ticket->member_id === null && $member?->hasVerifiedEmail())
+                    <p class="mt-1 text-sm text-ink-soft">{{ __('account.side_save_body') }}</p>
+                    <form method="POST" action="{{ route('account.save-current') }}" class="mt-3">
+                        @csrf
+                        <button type="submit" class="btn-secondary btn-sm w-full">{{ __('account.save_current') }}</button>
+                    </form>
+                @elseif ($ticket->hasCode())
                     <p class="mt-1 text-sm text-ink-soft">{{ __('chat.side_code_has') }}</p>
                 @else
                     <p class="mt-1 text-sm text-ink-soft">{{ __('chat.side_code_none') }}</p>
@@ -131,6 +141,9 @@
                         @csrf
                         <button type="submit" class="btn-secondary btn-sm w-full">{{ __('chat.get_code') }}</button>
                     </form>
+                @endif
+                @if ($ticket->member_id === null && ! $member)
+                    <a href="{{ route('account.login') }}" class="mt-3 inline-block text-sm">{{ __('account.side_sign_in') }}</a>
                 @endif
             </div>
 

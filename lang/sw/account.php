@@ -1,0 +1,146 @@
+<?php
+
+// KISWAHILI DRAFT: must be reviewed by a native Kiswahili speaker before launch.
+
+return [
+    // Navigation
+    'nav_sign_in' => 'Ingia',
+    'nav_account' => 'Akaunti yangu',
+
+    // Side panel on sign-in and sign-up pages
+    'panel_badge' => 'Ongea na Aisa moja kwa moja',
+    'panel_title' => 'Weka mazungumzo yako mahali pamoja salama',
+    'panel_points' => [
+        ['icon' => 'messages-square', 'text' => 'Mazungumzo yako yote pamoja, na majibu ya Aisa yanakusubiri.'],
+        ['icon' => 'key-round', 'text' => 'Hakuna namba ya siri ya kuhifadhi au kupoteza.'],
+        ['icon' => 'lock', 'text' => 'Barua pepe yako inahifadhiwa kwa usimbaji fiche. Aisa haioni kamwe.'],
+    ],
+    'panel_anonymous' => 'Akaunti si lazima. Unaweza kuzungumza nasi bila akaunti wakati wowote.',
+    'start_anonymous' => 'Anza bila akaunti',
+
+    // Sign in
+    'login_title' => 'Ingia',
+    'login_heading' => 'Karibu tena',
+    'login_intro' => 'Ingia uone mazungumzo yako na majibu ya Aisa.',
+    'email' => 'Barua pepe',
+    'password' => 'Nenosiri',
+    'forgot' => 'Umesahau nenosiri?',
+    'login_button' => 'Ingia',
+    'no_account' => 'Mgeni hapa?',
+    'create_account_link' => 'Fungua akaunti',
+    'have_code' => 'Una namba ya siri badala yake?',
+    'login_failed' => 'Barua pepe au nenosiri si sahihi. Tafadhali jaribu tena.',
+    'locked' => 'Majaribio mengi mno. Tafadhali subiri dakika :minutes kisha ujaribu tena.',
+
+    // Google
+    'google_button' => 'Endelea na Google',
+    'or' => 'au',
+    'google_failed' => 'Hatukuweza kukuingiza kwa Google. Tafadhali jaribu tena.',
+    'google_unverified' => 'Akaunti yako ya Google inahitaji barua pepe iliyothibitishwa ili kuingia hapa.',
+    'google_terms' => 'Kwa kuendelea na Google unakubali :terms na :privacy.',
+
+    // Register
+    'register_title' => 'Fungua akaunti',
+    'register_heading' => 'Fungua akaunti yako',
+    'register_intro' => 'Inachukua dakika moja. Unahitaji barua pepe na nenosiri tu.',
+    'name' => 'Tukuite nani?',
+    'name_hint' => 'Si lazima. Jina lolote au jina la utani. Linatumika tu kukusalimia kwenye ukurasa wa akaunti yako.',
+    'password_hint' => 'Angalau herufi 10, zikiwemo herufi na namba.',
+    'password_confirm' => 'Andika nenosiri tena',
+    'terms_label' => 'Nimesoma na ninakubali :terms na :privacy.',
+    'terms' => 'Masharti',
+    'privacy' => 'Taarifa ya faragha',
+    'terms_required' => 'Tafadhali weka alama kwenye kisanduku kukubali masharti na taarifa ya faragha.',
+    'register_button' => 'Fungua akaunti',
+    'have_account' => 'Tayari una akaunti?',
+    'shared_device' => 'Kwenye simu au kompyuta ya pamoja, kumbuka kutoka ukimaliza. Toka haraka pia inakutoa kwenye akaunti.',
+
+    // Check your email / verify
+    'check_title' => 'Angalia barua pepe yako',
+    'check_heading' => 'Angalia barua pepe yako',
+    'check_body' => 'Ikiwa anwani hii inaweza kutumika, tumetuma kiungo cha kuithibitisha kwenye anwani hiyo. Fungua kiungo, kisha uingie.',
+    'check_existing' => 'Tayari una akaunti yenye anwani hii? Ingia, au badilisha nenosiri ikiwa umelisahau.',
+    'check_spam' => 'Barua pepe inaweza kuchukua dakika chache. Tafadhali angalia pia folda ya barua taka.',
+    'dev_mail_log' => 'Toleo la majaribio: barua pepe hazitumwi. Kiungo kiko kwenye storage/logs/laravel.log.',
+    'verify_title' => 'Thibitisha barua pepe yako',
+    'verify_heading' => 'Tafadhali thibitisha barua pepe yako',
+    'verify_body' => 'Tulikutumia kiungo ulipofungua akaunti. Kifungue ili uanze kutumia akaunti yako.',
+    'verify_resend' => 'Tuma kiungo tena',
+    'verification_resent' => 'Ikiwa barua pepe yako bado inahitaji kuthibitishwa, kiungo kipya kinakuja.',
+    'verify_invalid' => 'Kiungo hiki cha kuthibitisha si halali. Tafadhali ingia na uombe kipya.',
+    'verified' => 'Asante, barua pepe yako imethibitishwa.',
+
+    // Password reset
+    'forgot_title' => 'Badilisha nenosiri',
+    'forgot_heading' => 'Umesahau nenosiri?',
+    'forgot_intro' => 'Andika barua pepe yako na tutakutumia kiungo cha kuchagua nenosiri jipya.',
+    'forgot_button' => 'Tuma kiungo',
+    'reset_link_sent' => 'Ikiwa kuna akaunti inayotumia anwani hii, kiungo kinakuja. Kinafanya kazi kwa dakika 60.',
+    'reset_title' => 'Chagua nenosiri jipya',
+    'reset_heading' => 'Chagua nenosiri jipya',
+    'new_password' => 'Nenosiri jipya',
+    'reset_button' => 'Hifadhi nenosiri jipya',
+    'reset_invalid' => 'Kiungo hiki si halali au muda wake umeisha. Tafadhali omba kipya.',
+    'password_changed' => 'Nenosiri lako limebadilishwa. Sasa unaweza kuingia.',
+    'back_to_login' => 'Rudi kuingia',
+
+    // Account page
+    'index_title' => 'Akaunti yangu',
+    'greeting' => 'Habari, :name',
+    'greeting_anonymous' => 'Habari',
+    'index_intro' => 'Mazungumzo yako na Aisa na msaidizi wa AI yamehifadhiwa hapa.',
+    'conversations' => 'Mazungumzo yangu',
+    'new_conversation' => 'Anza mazungumzo mapya',
+    'no_conversations' => 'Bado huna mazungumzo yaliyohifadhiwa.',
+    'started' => 'Yalianza :date',
+    'open' => 'Fungua',
+    'status_open' => 'Yanaendelea',
+    'status_awaiting_human' => 'Yanamsubiri Aisa',
+    'status_answered' => 'Aisa amejibu',
+    'status_closed' => 'Yamefungwa',
+    'pending_deletion' => 'Ombi la kufuta limetumwa',
+    'unsaved_title' => 'Hifadhi mazungumzo yako ya sasa?',
+    'unsaved_body' => 'Una mazungumzo yaliyo wazi ambayo bado hayajahifadhiwa kwenye akaunti yako.',
+    'save_current' => 'Yahifadhi kwenye akaunti yangu',
+    'saved_to_account' => 'Mazungumzo haya sasa yamehifadhiwa kwenye akaunti yako.',
+    'retention_note' => 'Mazungumzo hufutwa yenyewe siku :days baada ya shughuli ya mwisho.',
+
+    'settings' => 'Mipangilio ya akaunti',
+    'signed_in_as' => 'Umeingia kama :email',
+    'google_linked' => 'Kuingia kwa Google kumeunganishwa.',
+    'name_save' => 'Hifadhi jina',
+    'name_saved' => 'Jina lako limehifadhiwa.',
+    'change_password' => 'Kubadilisha nenosiri, tumia "Umesahau nenosiri?" kwenye ukurasa wa kuingia.',
+    'sign_out' => 'Toka',
+    'signed_out' => 'Umetoka kwenye akaunti.',
+
+    'delete_account' => 'Futa akaunti yangu',
+    'delete_explain' => 'Akaunti yako inafutwa mara moja na unatolewa. Mazungumzo yako yanatumwa kufutwa kwa njia ileile ya "Futa mazungumzo yangu". Hili haliwezi kutenduliwa.',
+    'delete_confirm' => 'Ndiyo, futa akaunti yangu na mazungumzo yangu.',
+    'delete_confirm_required' => 'Tafadhali weka alama kwenye kisanduku kuthibitisha.',
+    'delete_password' => 'Nenosiri lako',
+    'delete_button' => 'Futa akaunti yangu',
+    'wrong_password' => 'Nenosiri hilo si sahihi.',
+    'deleted' => 'Akaunti yako imefutwa, na mazungumzo yako yatafutwa hivi karibuni.',
+
+    // Conversation sidebar and Talk to Aisa
+    'side_saved' => 'Mazungumzo haya yamehifadhiwa kwenye akaunti yako. Majibu ya Aisa yatakusubiri huko.',
+    'side_save_body' => 'Hifadhi mazungumzo haya kwenye akaunti yako ili uyapate tena kwa urahisi.',
+    'side_sign_in' => 'Au ingia uyahifadhi kwenye akaunti',
+    'human_requested' => 'Ombi lako limetumwa kwa Aisa. Jibu lake litaonekana kwenye Akaunti yangu.',
+    'choose_help_tip' => 'Una akaunti? :link ili jibu la Aisa likusubiri huko, bila namba ya siri ya kuhifadhi.',
+    'choose_help_tip_link' => 'Ingia',
+
+    // Emails: neutral on purpose.
+    'mail_greeting' => 'Habari,',
+    'mail_salutation' => 'Asante',
+    'mail_verify_subject' => 'Thibitisha barua pepe yako',
+    'mail_verify_line' => 'Tafadhali thibitisha barua pepe yako ili kukamilisha kufungua akaunti yako.',
+    'mail_verify_button' => 'Thibitisha barua pepe',
+    'mail_verify_expiry' => 'Kiungo hiki kinafanya kazi kwa dakika 60.',
+    'mail_reset_subject' => 'Badilisha nenosiri lako',
+    'mail_reset_line' => 'Tumepokea ombi la kubadilisha nenosiri la akaunti yako.',
+    'mail_reset_button' => 'Badilisha nenosiri',
+    'mail_reset_expiry' => 'Kiungo hiki kinafanya kazi kwa dakika :minutes.',
+    'mail_ignore' => 'Ikiwa hukuomba hili, unaweza kupuuza barua pepe hii.',
+];

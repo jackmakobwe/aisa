@@ -39,6 +39,10 @@ To create real accounts instead of using the seeder: `php artisan aisa:create-ad
 
 On Windows with npm ≥ 11 you may see `allow-scripts` warnings for esbuild. The build still works; run `npm approve-scripts esbuild` if Vite cannot find its binary.
 
+## Optional accounts
+
+People can talk anonymously with a private code, or create an optional account (email + password, or "Continue with Google") at `/account/login` to keep all their conversations and Aisa's replies in one place. Accounts are separate from staff logins and never reach the dashboard. Locally, with `MAIL_MAILER=log`, the email-confirmation and password-reset links are written to `storage/logs/laravel.log`. Google sign-in appears only when `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` are set (see [docs/launch-blockers.md](docs/launch-blockers.md)).
+
 ## Testing without an API key
 
 `AISA_AI_PROVIDER=mock` (the default in `.env.example`) uses a **development mock** that never calls a model. Its replies start with *"[Simulated reply for development — not a real AI response]"*, are stored with `is_mock = true`, and are shown with a "Simulated" badge. Every page also shows a development banner. The app refuses to start the mock when `APP_ENV=production`.
@@ -58,7 +62,7 @@ Details, cost controls and data terms are in [docs/ai-provider.md](docs/ai-provi
 ## Running the tests
 
 ```bash
-php artisan test            # 152 tests: public flow, codes, safety, admin, security
+php artisan test            # 182 tests: public flow, codes, safety, admin, security
 vendor/bin/pint --test      # code style
 ```
 

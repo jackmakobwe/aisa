@@ -36,6 +36,12 @@
     --color-sky: #2f5b7c;
     --color-sky-light: #e9f1f7;
 
+    /* Article topic colours (decorative covers and topic labels only). */
+    --color-rose: #8f3557;
+    --color-rose-light: #fbeef3;
+    --color-plum: #5a4a86;
+    --color-plum-light: #efecf6;
+
     --radius-card: 1rem;
 }
 

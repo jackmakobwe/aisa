@@ -90,7 +90,7 @@ app/
 config/aisa.php            all Aisa settings and open decisions
 lang/en, lang/sw           translations
 resources/views/           layouts, public, admin, components
-tests/Unit, tests/Feature  152 tests; tests/Support/FakeAiProvider.php
+tests/Unit, tests/Feature  182 tests; tests/Support/FakeAiProvider.php
 ```
 
 ## Data model

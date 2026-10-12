@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\CrisisResource;
+use App\Services\ArticleLibrary;
 use App\Services\LaunchReadiness;
 use App\Services\SettingsService;
 use Illuminate\View\View;
 
 class PageController extends Controller
 {
-    public function home(): View
+    public function home(ArticleLibrary $articles): View
     {
-        return view('public.home');
+        return view('public.home', [
+            'articles' => $articles->latest(config('articles.home_count')),
+            'hasAisaPhoto' => file_exists(public_path('images/aisa.jpg')),
+        ]);
     }
 
     public function howItWorks(): View

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Account\AccountController;
 use App\Http\Requests\ConsentRequest;
 use App\Http\Requests\UserMessageRequest;
 use App\Services\ConversationService;
 use App\Services\TicketAccess;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
@@ -63,6 +65,11 @@ class ConsentController extends Controller
 
         if ($name = trim((string) $request->validated('display_name'))) {
             $ticket->forceFill(['display_name' => $name])->save();
+        }
+
+        // Signed in with a confirmed email: the conversation is saved to the account.
+        if ($member = Auth::guard('member')->user()) {
+            AccountController::attach($ticket, $member);
         }
 
         $request->session()->forget(self::DRAFT_KEY);

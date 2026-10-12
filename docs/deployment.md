@@ -41,8 +41,11 @@ LOG_LEVEL=warning
 DB_CONNECTION=mysql
 DB_HOST=...  DB_DATABASE=aisa  DB_USERNAME=aisa  DB_PASSWORD=<strong, unique>
 
-MAIL_MAILER=smtp      # not "log"
+MAIL_MAILER=smtp      # not "log"; accounts cannot be confirmed without real mail
 MAIL_FROM_ADDRESS=no-reply@your-domain.example
+MAIL_FROM_NAME=<neutral name>   # shown in people's inboxes; avoid words like "counselling"
+GOOGLE_CLIENT_ID=<optional>     # "Continue with Google"; see launch-blockers.md
+GOOGLE_CLIENT_SECRET=<optional>
 AISA_SAFETY_ALERT_EMAILS=aisa@your-domain.example,backup@your-domain.example
 
 AISA_AI_PROVIDER=anthropic

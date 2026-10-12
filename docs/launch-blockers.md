@@ -38,13 +38,16 @@ Also required before public launch, but not checked automatically: tested backup
 
 - Aisa's photograph (`public/images/aisa.jpg`), her short bio and her stated review standard (Admin → Settings & launch). Nothing about her qualifications or history has been invented.
 - Final legal text in both languages.
+- Approval of the six article photos (free Unsplash licence, credited on each article; files in `public/images/articles`). The Unsplash licence does not include model releases, so check that showing these people beside sensitive topics is acceptable, or replace them with photos you own or have permission for. Each article says the people shown are not connected to the topic.
+- Legal review of optional accounts (privacy notice section 6), including whether inactive accounts should expire.
+- For "Continue with Google": a Google Cloud OAuth client on the production domain (`GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`) and a neutral OAuth consent-screen name. Google only accepts `localhost` or a real domain as a redirect, not a LAN IP address.
+- Review of the six educational articles (`lang/*/articles.php`) by a qualified counsellor or health worker, and of the Kiswahili by a native speaker. They are general information written for development; each article shows a draft notice until `AISA_ARTICLES_REVIEWED=true`. Order, topics and which three appear on the home page are set in `config/articles.php`.
 
 ## Not built yet (later phases, by design)
 
 | Feature | Phase | Note |
 |---|---|---|
 | SMS / WhatsApp reply notifications (W19) | 2 | Would add an encrypted phone column and a notification service; consent wording needed |
-| Optional accounts (W20) | 2 | Ticket codes only for now |
 | Digest emails, trend charts beyond the analytics page | 2 | Analytics page exists |
 | "Send my code to myself" helper (W22) | 2 | — |
 | Emergency contact field | 2 | Only with legal advice |

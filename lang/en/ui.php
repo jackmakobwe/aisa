@@ -14,6 +14,7 @@ return [
     'nav_home' => 'Home',
     'nav_how' => 'How it works',
     'nav_about' => 'About',
+    'nav_articles' => 'Articles',
     'nav_check' => 'Check your code',
     'nav_contact' => 'Contact & report',
     'nav_privacy' => 'Privacy',

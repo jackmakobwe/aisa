@@ -23,7 +23,7 @@ return [
                 'A name, only if you choose to give one. You can use any name.',
                 'Simple service records, such as when messages were sent and whether a safety concern was flagged.',
             ],
-            'paragraphs' => ['We do not ask for your phone number, email address or location. We do not store your IP address with your conversation.'],
+            'paragraphs' => ['We do not ask for your phone number or location. We ask for an email address only if you choose to create an account (see section 6). We do not store your IP address with your conversation.'],
         ],
         [
             'title' => '2. Why we use it',
@@ -53,8 +53,12 @@ return [
             'paragraphs' => ['If what you write suggests that someone, especially a child, is at serious risk of harm, Aisa may need to act on it, as the law requires or allows. We do not know who you are, so this is limited to what you have told us.'],
         ],
         [
-            'title' => '6. Your private code',
-            'paragraphs' => ['Instead of an account, you receive a long, random private code. We store only a scrambled (hashed) version of it, so we cannot tell you your code if you lose it. Anyone who has your code can read your conversation, so keep it private.'],
+            'title' => '6. Your private code, or an optional account',
+            'paragraphs' => [
+                'Without an account, you receive a long, random private code. We store only a scrambled (hashed) version of it, so we cannot tell you your code if you lose it. Anyone who has your code can read your conversation, so keep it private.',
+                'You can instead create an optional account with an email address and password, or with Google. We store your email address encrypted, a scrambled version of it to find your account, your password only in scrambled (hashed) form, an optional name, and, if you use Google, a scrambled version of your Google account number. We do not receive or store your Google name, photo or contacts. Aisa and the team do not see your email address. Emails we send are only for confirming your address or resetting your password, and do not mention what the site is about.',
+                'Anyone who can sign in to your account can read your saved conversations, and an account is linked to your email. If someone may check your email or devices, using a private code without an account may be safer. You can delete your account at any time from My account. Accounts whose email is never confirmed are deleted after 7 days.',
+            ],
         ],
         [
             'title' => '7. Cookies and storage on your device',

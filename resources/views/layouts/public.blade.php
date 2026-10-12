@@ -33,11 +33,19 @@
                 <span class="hidden font-serif text-2xl font-semibold tracking-tight sm:inline">Aisa</span>
             </a>
 
-            <nav class="ml-8 hidden items-center gap-1 lg:flex" aria-label="{{ __('ui.main_nav') }}">
-                <a href="{{ route('home') }}" class="rounded-lg px-3 py-2 text-ink-soft no-underline hover:bg-sand hover:text-ink @if(request()->routeIs('home')) text-ink font-semibold @endif">{{ __('ui.nav_home') }}</a>
-                <a href="{{ route('how') }}" class="rounded-lg px-3 py-2 text-ink-soft no-underline hover:bg-sand hover:text-ink @if(request()->routeIs('how')) text-ink font-semibold @endif">{{ __('ui.nav_how') }}</a>
-                <a href="{{ route('about') }}" class="rounded-lg px-3 py-2 text-ink-soft no-underline hover:bg-sand hover:text-ink @if(request()->routeIs('about')) text-ink font-semibold @endif">{{ __('ui.nav_about') }}</a>
-                <a href="{{ route('check.show') }}" class="rounded-lg px-3 py-2 text-ink-soft no-underline hover:bg-sand hover:text-ink @if(request()->routeIs('check.*')) text-ink font-semibold @endif">{{ __('ui.nav_check') }}</a>
+            <nav class="ml-6 hidden items-center gap-0.5 whitespace-nowrap xl:flex" aria-label="{{ __('ui.main_nav') }}">
+                <a href="{{ route('home') }}" class="rounded-lg px-2.5 py-2 text-ink-soft no-underline hover:bg-sand hover:text-ink @if(request()->routeIs('home')) text-ink font-semibold @endif">{{ __('ui.nav_home') }}</a>
+                <a href="{{ route('how') }}" class="rounded-lg px-2.5 py-2 text-ink-soft no-underline hover:bg-sand hover:text-ink @if(request()->routeIs('how')) text-ink font-semibold @endif">{{ __('ui.nav_how') }}</a>
+                <a href="{{ route('articles.index') }}" class="rounded-lg px-2.5 py-2 text-ink-soft no-underline hover:bg-sand hover:text-ink @if(request()->routeIs('articles.*')) text-ink font-semibold @endif">{{ __('ui.nav_articles') }}</a>
+                <a href="{{ route('about') }}" class="rounded-lg px-2.5 py-2 text-ink-soft no-underline hover:bg-sand hover:text-ink @if(request()->routeIs('about')) text-ink font-semibold @endif">{{ __('ui.nav_about') }}</a>
+                @guest('member')
+                    <a href="{{ route('check.show') }}" class="rounded-lg px-2.5 py-2 text-ink-soft no-underline hover:bg-sand hover:text-ink @if(request()->routeIs('check.*')) text-ink font-semibold @endif">{{ __('ui.nav_check') }}</a>
+                @endguest
+                @auth('member')
+                    <a href="{{ route('account.index') }}" class="ml-1.5 inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-line-strong bg-white px-3 py-2 text-ink no-underline hover:bg-sand @if(request()->routeIs('account.*')) font-semibold @endif"><i data-lucide="user-round" class="h-4 w-4 text-forest"></i>{{ __('account.nav_account') }}</a>
+                @else
+                    <a href="{{ route('account.login') }}" class="ml-1.5 inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-line-strong bg-white px-3 py-2 text-ink no-underline hover:bg-sand @if(request()->routeIs('account.*')) font-semibold @endif"><i data-lucide="user-round" class="h-4 w-4 text-forest"></i>{{ __('account.nav_sign_in') }}</a>
+                @endauth
             </nav>
 
             <div class="ml-auto flex items-center gap-1.5 sm:gap-2">
@@ -55,19 +63,25 @@
                     <span class="whitespace-nowrap">{{ __('ui.quick_exit') }}</span>
                 </button>
 
-                <button type="button" class="btn-quiet btn-sm lg:hidden" x-on:click="toggle" aria-controls="mobile-nav" x-bind:aria-expanded="open" aria-label="{{ __('ui.menu') }}">
+                <button type="button" class="btn-quiet btn-sm xl:hidden" x-on:click="toggle" aria-controls="mobile-nav" x-bind:aria-expanded="open" aria-label="{{ __('ui.menu') }}">
                     <i data-lucide="menu" class="h-5 w-5"></i>
                 </button>
             </div>
         </div>
 
-        <nav id="mobile-nav" class="border-t border-line bg-ivory lg:hidden" x-show="open" x-cloak aria-label="{{ __('ui.main_nav') }}">
+        <nav id="mobile-nav" class="border-t border-line bg-ivory xl:hidden" x-show="open" x-cloak aria-label="{{ __('ui.main_nav') }}">
             <div class="container-page flex flex-col gap-1 py-3">
                 <a href="{{ route('home') }}" class="rounded-lg px-3 py-2.5 text-ink no-underline hover:bg-sand">{{ __('ui.nav_home') }}</a>
                 <a href="{{ route('how') }}" class="rounded-lg px-3 py-2.5 text-ink no-underline hover:bg-sand">{{ __('ui.nav_how') }}</a>
+                <a href="{{ route('articles.index') }}" class="rounded-lg px-3 py-2.5 text-ink no-underline hover:bg-sand">{{ __('ui.nav_articles') }}</a>
                 <a href="{{ route('about') }}" class="rounded-lg px-3 py-2.5 text-ink no-underline hover:bg-sand">{{ __('ui.nav_about') }}</a>
                 <a href="{{ route('check.show') }}" class="rounded-lg px-3 py-2.5 text-ink no-underline hover:bg-sand">{{ __('ui.nav_check') }}</a>
                 <a href="{{ route('contact.show') }}" class="rounded-lg px-3 py-2.5 text-ink no-underline hover:bg-sand">{{ __('ui.nav_contact') }}</a>
+                @auth('member')
+                    <a href="{{ route('account.index') }}" class="flex items-center gap-2 rounded-lg px-3 py-2.5 font-semibold text-forest no-underline hover:bg-sand"><i data-lucide="user-round" class="h-4 w-4"></i>{{ __('account.nav_account') }}</a>
+                @else
+                    <a href="{{ route('account.login') }}" class="flex items-center gap-2 rounded-lg px-3 py-2.5 font-semibold text-forest no-underline hover:bg-sand"><i data-lucide="user-round" class="h-4 w-4"></i>{{ __('account.nav_sign_in') }}</a>
+                @endauth
                 <x-language-toggle class="mt-2 px-3" />
             </div>
         </nav>
@@ -98,6 +112,7 @@
             <nav aria-label="{{ __('ui.footer_nav') }}" class="grid grid-cols-2 gap-2 text-sm">
                 <a href="{{ route('how') }}">{{ __('ui.nav_how') }}</a>
                 <a href="{{ route('about') }}">{{ __('ui.nav_about') }}</a>
+                <a href="{{ route('articles.index') }}">{{ __('ui.nav_articles') }}</a>
                 <a href="{{ route('privacy') }}">{{ __('ui.nav_privacy') }}</a>
                 <a href="{{ route('terms') }}">{{ __('ui.nav_terms') }}</a>
                 <a href="{{ route('contact.show') }}">{{ __('ui.nav_contact') }}</a>

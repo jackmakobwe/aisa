@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Account\AccountController;
 use App\Http\Requests\ChooseHelpRequest;
 use App\Models\Ticket;
 use App\Services\ConversationService;
 use App\Services\SettingsService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class ChooseHelpController extends Controller
@@ -33,13 +35,24 @@ class ChooseHelpController extends Controller
             return back()->with('status', __('help.paused'));
         }
 
-        // Anyone asking for Aisa needs a code to come back for her reply.
-        if ($mode === 'human' && ($code = $conversations->issueCodeIfMissing($ticket))) {
+        // Signed in: save the conversation to the account, so Aisa's reply appears there.
+        if ($member = Auth::guard('member')->user()) {
+            AccountController::attach($ticket, $member);
+        }
+
+        // Anyone else asking for Aisa needs a code to come back for her reply.
+        if ($mode === 'human' && $ticket->member_id === null && ($code = $conversations->issueCodeIfMissing($ticket))) {
             $request->session()->put('aisa.issued_code', $code);
 
             return redirect()->route('code.issued');
         }
 
-        return redirect()->route('conversation.show')->with('status', $mode === 'human' ? __('help.human_requested') : __('help.ai_chosen'));
+        $status = match (true) {
+            $mode !== 'human' => __('help.ai_chosen'),
+            $ticket->member_id !== null => __('account.human_requested'),
+            default => __('help.human_requested'),
+        };
+
+        return redirect()->route('conversation.show')->with('status', $status);
     }
 }

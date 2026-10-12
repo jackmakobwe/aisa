@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\AdminSession;
 use App\Http\Middleware\EnsureLaunchReady;
+use App\Http\Middleware\RequireMember;
 use App\Http\Middleware\RequireTicketAccess;
 use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\SetLocale;
@@ -25,6 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'launch-ready' => EnsureLaunchReady::class,
             'ticket' => RequireTicketAccess::class,
             'admin.session' => AdminSession::class,
+            'member' => RequireMember::class,
         ]);
 
         // The language cookie is not secret; everything else stays encrypted.

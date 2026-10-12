@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\TicketAccess;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Called in the background (navigator.sendBeacon) when someone presses
@@ -19,6 +20,7 @@ class QuickExitController extends Controller
     public function __invoke(Request $request, TicketAccess $access): Response
     {
         $access->revoke();
+        Auth::guard('member')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

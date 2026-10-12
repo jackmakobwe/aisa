@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Member;
 use App\Models\User;
 use App\Services\AuditLogger;
 use App\Services\DeletionService;
@@ -52,11 +53,16 @@ Artisan::command('aisa:launch-check', function (LaunchReadiness $readiness) {
 Artisan::command('aisa:prune', function (DeletionService $deletions) {
     $count = $deletions->pruneExpired();
     $this->info("Deleted {$count} conversation(s) inactive for more than ".config('aisa.retention_days').' days.');
-})->purpose('Delete conversations past the retention period');
+
+    // Sign-ups whose email was never confirmed hold no conversations (only confirmed
+    // accounts can) and are removed after a week.
+    $unconfirmed = Member::whereNull('email_verified_at')->where('created_at', '<', now()->subDays(7))->delete();
+    $this->info("Deleted {$unconfirmed} unconfirmed account(s) older than 7 days.");
+})->purpose('Delete conversations past the retention period and unconfirmed accounts');
 
 Artisan::command('aisa:pepper', function () {
     $this->line('AISA_TICKET_PEPPER='.bin2hex(random_bytes(32)));
-    $this->warn('Set this once before launch. Changing it later makes every existing ticket code invalid.');
+    $this->warn('Set this once before launch. Changing it later makes every existing ticket code invalid and stops every account from signing in.');
 })->purpose('Generate a secret for hashing ticket codes');
 
 Schedule::command('aisa:prune')->dailyAt('02:30');

@@ -24,7 +24,8 @@ Tracks the project document's requirements (IDs from sections 7 and 8). ✅ done
 | W16 | Deletion request via code | ✅ |
 | W17 | About, How it works, Privacy, Terms in both languages | 🟡 **legal and Kiswahili review pending** |
 | W18 | Satisfaction rating | ✅ |
-| W19–W22 | SMS/WhatsApp, accounts, richer history, send-code helper | ⬜ Phase 2 |
+| W20 | Optional accounts (email + password, Google), My conversations | ✅ (Google needs an OAuth client; legal review pending) |
+| W19, W21, W22 | SMS/WhatsApp, richer history, send-code helper | ⬜ Phase 2 |
 | W23–W24 | Voice, mobile apps | ⬜ Phase 3 |
 
 ## Dashboard (section 8)
@@ -53,9 +54,11 @@ Tracks the project document's requirements (IDs from sections 7 and 8). ✅ done
 - [x] Launch gate + `aisa:launch-check`
 - [x] Retention pruning (scheduled)
 - [x] Mock provider clearly labelled; refused in production
-- [x] 152 automated tests passing
+- [x] 182 automated tests passing
 - [x] Safety evaluation command and shared test set (`aisa:safety-eval`)
 - [x] Automated browser and axe accessibility check (25 pages, 0 violations)
+- [x] Educational articles (6, EN/SW) with topic filter; latest three on the home page
+- [ ] Counsellor review of the articles (`AISA_ARTICLES_REVIEWED`)
 - [ ] Native Kiswahili review
 - [ ] Legal review
 - [ ] Verified crisis contacts

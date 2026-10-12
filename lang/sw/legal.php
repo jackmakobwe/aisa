@@ -19,7 +19,7 @@ return [
                 'Jina, ikiwa tu utachagua kulitaja. Unaweza kutumia jina lolote.',
                 'Kumbukumbu rahisi za huduma, kama muda jumbe zilipotumwa na ikiwa jambo la usalama lilibainika.',
             ],
-            'paragraphs' => ['Hatuombi namba yako ya simu, barua pepe wala mahali ulipo. Hatuhifadhi anwani yako ya IP pamoja na mazungumzo yako.'],
+            'paragraphs' => ['Hatuombi namba yako ya simu wala mahali ulipo. Tunaomba barua pepe tu ukichagua kufungua akaunti (angalia sehemu ya 6). Hatuhifadhi anwani yako ya IP pamoja na mazungumzo yako.'],
         ],
         [
             'title' => '2. Kwa nini tunazitumia',
@@ -49,8 +49,12 @@ return [
             'paragraphs' => ['Ikiwa unachoandika kinaonyesha kwamba mtu, hasa mtoto, yuko katika hatari kubwa ya kudhuriwa, Aisa anaweza kulazimika kuchukua hatua, kama sheria inavyotaka au kuruhusu. Hatujui wewe ni nani, kwa hiyo hili linahusu tu ulichotueleza.'],
         ],
         [
-            'title' => '6. Namba yako ya siri',
-            'paragraphs' => ['Badala ya akaunti, unapata namba ndefu ya siri isiyotabirika. Tunahifadhi toleo lake lililochanganywa (hash) tu, kwa hiyo hatuwezi kukuambia namba yako ukiipoteza. Yeyote mwenye namba yako anaweza kusoma mazungumzo yako, kwa hiyo iweke siri.'],
+            'title' => '6. Namba yako ya siri, au akaunti isiyo ya lazima',
+            'paragraphs' => [
+                'Bila akaunti, unapata namba ndefu ya siri isiyotabirika. Tunahifadhi toleo lake lililochanganywa (hash) tu, kwa hiyo hatuwezi kukuambia namba yako ukiipoteza. Yeyote mwenye namba yako anaweza kusoma mazungumzo yako, kwa hiyo iweke siri.',
+                'Badala yake unaweza kufungua akaunti isiyo ya lazima kwa barua pepe na nenosiri, au kwa Google. Tunahifadhi barua pepe yako kwa usimbaji fiche, toleo lake lililochanganywa ili kupata akaunti yako, nenosiri lako katika hali iliyochanganywa (hash) tu, jina lisilo la lazima, na ukitumia Google, toleo lililochanganywa la namba ya akaunti yako ya Google. Hatupokei wala kuhifadhi jina, picha au anwani zako za Google. Aisa na timu hawaioni barua pepe yako. Barua pepe tunazotuma ni za kuthibitisha anwani yako au kubadilisha nenosiri tu, na hazitaji tovuti hii inahusu nini.',
+                'Yeyote anayeweza kuingia kwenye akaunti yako anaweza kusoma mazungumzo yako yaliyohifadhiwa, na akaunti imeunganishwa na barua pepe yako. Ikiwa kuna mtu anayeweza kuangalia barua pepe au vifaa vyako, kutumia namba ya siri bila akaunti kunaweza kuwa salama zaidi. Unaweza kufuta akaunti yako wakati wowote kwenye Akaunti yangu. Akaunti ambazo barua pepe yake haijathibitishwa hufutwa baada ya siku 7.',
+            ],
         ],
         [
             'title' => '7. Vidakuzi (cookies) na hifadhi kwenye kifaa chako',

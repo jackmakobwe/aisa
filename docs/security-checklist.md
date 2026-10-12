@@ -8,7 +8,7 @@ Status: ✅ implemented and tested · 🟡 implemented, needs production configu
 | Headers | CSP (nonce scripts, `frame-ancestors 'none'`, no `unsafe-eval`), X-Frame-Options, nosniff, Referrer-Policy `no-referrer`, Permissions-Policy, COOP | ✅ | `PublicPagesTest::test_security_headers...` |
 | Caching | `Cache-Control: no-store` on HTML/JSON | ✅ | same test |
 | CSRF | Laravel token on every form and `fetch` | ✅ | `CsrfProtectionTest` |
-| XSS | Blade escaping of all user, AI and staff text; no `{!! !!}` except the server-generated 2FA QR SVG | ✅ | `test_user_message_html_is_escaped`, `test_reply_body_is_escaped_for_the_user` |
+| XSS | Blade escaping of all user, AI and staff text; no `{!! !!}` except the server-generated 2FA QR SVG and four translated sentences containing a link (`register`, `choose-help`, article photo credit), where every inserted value is passed through `e()` and the sentence itself comes from the lang files | ✅ | `test_user_message_html_is_escaped`, `test_reply_body_is_escaped_for_the_user` |
 | SQL injection | Eloquent and query builder with bindings only | ✅ | — |
 | Validation | Form Requests; length limits; control characters stripped | ✅ | `test_message_validation` |
 | Ticket codes | 140-bit CSPRNG codes, keyed HMAC storage, plaintext never stored | ✅ | `TicketCredentialServiceTest`, `test_plaintext_code_is_never_stored` |
@@ -20,7 +20,9 @@ Status: ✅ implemented and tested · 🟡 implemented, needs production configu
 | 2FA | TOTP mandatory for every account, per-session challenge, replay prevention, hashed single-use recovery codes | ✅ | `AdminAuthTest` |
 | Idle timeout | 30 min (configurable) | ✅ | `test_idle_sessions_are_signed_out` |
 | Roles | `responder` vs `admin` gates on every route | ✅ | `test_responders_cannot_use_admin_only_areas` |
-| Registration | None; accounts via `aisa:create-admin` or by an admin | ✅ | `test_there_is_no_public_registration` |
+| Public accounts (optional) | Separate `members` table and `member` guard: a member session never passes staff auth. Email encrypted with HMAC lookup; bcrypt passwords (min 10, letters and numbers, HaveIBeenPwned check); email confirmation required before an account can hold conversations; sign-up, sign-in and reset never reveal whether an email has an account; 5 failed sign-ins per email and IP lock for 15 min, plus 10 requests/min per IP; session regenerated on sign-in; Quick exit and sign-out end the session; ownership checked on every conversation opened from an account | ✅ | `MemberAccountTest` |
+| Google sign-in | Socialite with state check; only Google-confirmed emails; an unconfirmed password sign-up for the same address loses its password when Google links it (prevents account pre-hijacking); routes 404 until configured | ✅ | `MemberAccountTest` |
+| Staff registration | None; staff accounts via `aisa:create-admin` or by an admin | ✅ | `test_there_is_no_public_registration` |
 | Default credentials | None in production; the dev seeder refuses to run in production and generates a random password | ✅ | `DatabaseSeeder` |
 | Password reset | Signed token, expiring, same response for unknown emails, 2FA still required | ✅ | `test_password_reset_does_not_reveal...` |
 | Audit | Views, searches, replies, notes, flags, deletions, settings, sign-ins | ✅ | `test_viewing_a_conversation_is_audited` |

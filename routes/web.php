@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\Account\AccountController;
+use App\Http\Controllers\Account\GoogleController;
+use App\Http\Controllers\Account\MemberAuthController;
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ChooseHelpController;
 use App\Http\Controllers\CodeController;
 use App\Http\Controllers\ConsentController;
@@ -26,6 +30,9 @@ Route::get('/terms', [PageController::class, 'terms'])->name('terms');
 Route::get('/not-open', [PageController::class, 'notOpen'])->name('not-open');
 Route::get('/under-18', [PageController::class, 'underAge'])->name('under-18');
 
+Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
+Route::get('/articles/{slug}', [ArticleController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('articles.show');
+
 Route::get('/language/{locale}', LocaleController::class)->whereIn('locale', ['en', 'sw'])->name('locale');
 Route::post('/quick-exit', QuickExitController::class)->name('quick-exit');
 
@@ -38,6 +45,36 @@ Route::middleware('launch-ready')->group(function () {
     Route::get('/consent', [ConsentController::class, 'show'])->name('consent.show');
     Route::post('/consent', [ConsentController::class, 'store'])->middleware('throttle:start')->name('consent.store');
     Route::post('/consent/decline', [ConsentController::class, 'decline'])->name('consent.decline');
+});
+
+// Optional accounts (members). Separate from the staff dashboard.
+Route::prefix('account')->name('account.')->group(function () {
+    Route::get('/login', [MemberAuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [MemberAuthController::class, 'login'])->middleware('throttle:member-auth')->name('login.store');
+    Route::get('/register', [MemberAuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [MemberAuthController::class, 'register'])->middleware('throttle:member-auth')->name('register.store');
+    Route::get('/check-email', [MemberAuthController::class, 'checkEmail'])->name('check-email');
+    Route::post('/logout', [MemberAuthController::class, 'logout'])->name('logout');
+
+    Route::get('/verify', [MemberAuthController::class, 'verifyNotice'])->name('verify.notice');
+    Route::post('/verify/resend', [MemberAuthController::class, 'resendVerification'])->middleware('throttle:member-auth')->name('verify.resend');
+    Route::get('/verify/{id}/{hash}', [MemberAuthController::class, 'verify'])->whereNumber('id')->middleware(['signed', 'throttle:member-auth'])->name('verify');
+
+    Route::get('/forgot-password', [MemberAuthController::class, 'showForgot'])->name('password.request');
+    Route::post('/forgot-password', [MemberAuthController::class, 'sendResetLink'])->middleware('throttle:member-auth')->name('password.email');
+    Route::get('/reset-password/{token}', [MemberAuthController::class, 'showReset'])->name('password.reset');
+    Route::post('/reset-password', [MemberAuthController::class, 'reset'])->middleware('throttle:member-auth')->name('password.update');
+
+    Route::get('/google', [GoogleController::class, 'redirect'])->name('google');
+    Route::get('/google/callback', [GoogleController::class, 'callback'])->middleware('throttle:member-auth')->name('google.callback');
+
+    Route::middleware('member')->group(function () {
+        Route::get('/', [AccountController::class, 'index'])->name('index');
+        Route::post('/conversations/{reference}', [AccountController::class, 'open'])->where('reference', '[A-Za-z0-9-]+')->name('open');
+        Route::post('/save-current', [AccountController::class, 'saveCurrent'])->name('save-current');
+        Route::post('/name', [AccountController::class, 'updateName'])->name('name');
+        Route::post('/delete', [AccountController::class, 'destroy'])->name('destroy');
+    });
 });
 
 // Returning with a code.

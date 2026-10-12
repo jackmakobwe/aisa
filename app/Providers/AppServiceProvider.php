@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Auth\MemberUserProvider;
 use App\Models\ContactSubmission;
 use App\Models\CrisisResource;
 use App\Models\DeletionRequest;
@@ -15,6 +16,7 @@ use App\Services\LaunchReadiness;
 use App\Session\PrivacyDatabaseSessionHandler;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Session;
@@ -71,6 +73,8 @@ class AppServiceProvider extends ServiceProvider
                 $app,
             );
         });
+
+        Auth::provider('members', fn ($app, array $config) => new MemberUserProvider($app['hash'], $config['model']));
 
         Vite::useCspNonce();
 
@@ -133,6 +137,9 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('code-lookup', fn (Request $r) => Limit::perHour(30)->by('code-ip:'.$ip($r)));
 
         RateLimiter::for('contact', fn (Request $r) => Limit::perHour(config('aisa.limits.contact_per_hour'))->by('contact:'.$ip($r)));
+
+        // Member sign-in, sign-up and email links. Failed passwords are also limited per email in MemberAuthController.
+        RateLimiter::for('member-auth', fn (Request $r) => Limit::perMinute(10)->by('member-auth:'.$ip($r)));
 
         RateLimiter::for('admin', fn (Request $r) => Limit::perMinute(120)->by('admin:'.($r->user()?->id ?? $ip($r))));
     }

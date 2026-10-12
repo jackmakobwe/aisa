@@ -52,6 +52,12 @@
                 @elseif (! $humanOpen)
                     <p class="mt-6 rounded-xl bg-amber-light px-4 py-3 text-sm">{{ __('help.paused') }}</p>
                 @else
+                    @if ($ticket->member_id === null && ! auth('member')->check())
+                        <p class="mt-5 flex items-start gap-2 rounded-xl bg-sage-light px-4 py-3 text-sm">
+                            <i data-lucide="user-round" class="mt-0.5 h-4 w-4 shrink-0 text-forest"></i>
+                            <span>{!! __('account.choose_help_tip', ['link' => '<a href="'.e(route('account.login')).'" class="font-semibold">'.e(__('account.choose_help_tip_link')).'</a>']) !!}</span>
+                        </p>
+                    @endif
                     <label class="mt-5 flex items-start gap-3 text-sm">
                         <input type="checkbox" name="share_ok" value="1" class="mt-0.5 h-5 w-5 shrink-0 accent-forest" x-ref="box" x-on:change="sync">
                         <span>{{ __('help.share_label') }}</span>

@@ -16,6 +16,7 @@ return [
     'nav_home' => 'Mwanzo',
     'nav_how' => 'Jinsi inavyofanya kazi',
     'nav_about' => 'Kuhusu',
+    'nav_articles' => 'Makala',
     'nav_check' => 'Angalia namba yako',
     'nav_contact' => 'Wasiliana na ripoti',
     'nav_privacy' => 'Faragha',

@@ -58,6 +58,12 @@ class Ticket extends Model
         ];
     }
 
+    /** The optional account this conversation is saved to. Null for anonymous conversations. */
+    public function member(): BelongsTo
+    {
+        return $this->belongsTo(Member::class);
+    }
+
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class)->orderBy('id');
