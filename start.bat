@@ -13,6 +13,14 @@ if not exist "public\build\manifest.json" (
     call npm run build
 )
 
+rem Speed: cache routes, compiled views and events so each page does less work.
+rem Rebuilt on every start, so code changes are always picked up after a restart.
+rem (Config is deliberately not cached: .env edits apply without extra steps.)
+echo Preparing caches for faster pages...
+call php artisan route:cache >nul
+call php artisan view:cache >nul
+call php artisan event:cache >nul
+
 echo.
 echo   Aisa is starting...
 echo.

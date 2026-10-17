@@ -114,6 +114,26 @@
     </figure>
 </section>
 
+{{-- Mama Care: health education for young mothers. --}}
+<section class="container-page pb-16" aria-labelledby="mama-heading">
+    <a href="{{ route('mama-care') }}" class="group flex flex-col gap-5 rounded-[1.5rem] border border-clay/30 bg-clay-light/50 p-6 text-ink no-underline transition-colors hover:border-clay sm:flex-row sm:items-center sm:p-8">
+        @if (file_exists(public_path('images/mama/hero-640.webp')))
+            <img src="{{ asset('images/mama/hero-640.webp') }}" alt="" width="640" height="360" loading="lazy" decoding="async"
+                 class="aspect-[16/9] w-full shrink-0 rounded-2xl object-cover sm:w-56">
+        @else
+            <span class="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white text-clay">
+                <i data-lucide="baby" class="h-7 w-7"></i>
+            </span>
+        @endif
+        <span class="flex-1">
+            <span class="badge bg-white text-clay">{{ __('mama.home_badge') }}</span>
+            <span id="mama-heading" class="mt-2 block font-serif text-2xl font-semibold">{{ __('mama.home_title') }}</span>
+            <span class="mt-1 block text-ink-soft">{{ __('mama.home_body') }}</span>
+        </span>
+        <span class="inline-flex items-center gap-1 font-semibold text-clay">{{ __('mama.home_link') }}<i data-lucide="arrow-right" class="h-5 w-5 transition-transform group-hover:translate-x-0.5"></i></span>
+    </a>
+</section>
+
 {{-- Talk to Aisa panel. Light text on forest green; links override the default link colour and focus ring. --}}
 <section class="bg-forest text-white" aria-labelledby="talk-heading">
     <div class="container-page grid gap-12 py-16 lg:grid-cols-2 lg:items-center lg:py-20">

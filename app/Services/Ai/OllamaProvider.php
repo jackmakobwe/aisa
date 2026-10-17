@@ -38,8 +38,13 @@ class OllamaProvider implements AiProvider
     public function generateJson(string $system, array $messages, array $schema, int $maxTokens): AiResult
     {
         // Local models on ordinary computers can take minutes; do not let
-        // PHP's own time limit cut the request off first.
-        set_time_limit((int) $this->timeout + 30);
+        // PHP's own time limit cut a web request off first. Only ever raise
+        // an existing limit: 0 (the CLI default) means unlimited, and setting
+        // a limit there would cap the whole remaining process.
+        $limit = (int) ini_get('max_execution_time');
+        if ($limit > 0 && $limit < $this->timeout + 30) {
+            set_time_limit((int) $this->timeout + 30);
+        }
         $started = hrtime(true);
 
         try {

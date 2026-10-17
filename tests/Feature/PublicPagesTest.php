@@ -13,7 +13,7 @@ class PublicPagesTest extends TestCase
 
     public static function pages(): array
     {
-        return [['home'], ['how'], ['about'], ['get-help'], ['privacy'], ['terms'], ['contact.show'], ['check.show'], ['not-open'], ['under-18'], ['articles.index']];
+        return [['home'], ['how'], ['about'], ['mama-care'], ['get-help'], ['privacy'], ['terms'], ['contact.show'], ['check.show'], ['not-open'], ['under-18'], ['articles.index']];
     }
 
     #[DataProvider('pages')]

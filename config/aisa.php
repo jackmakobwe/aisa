@@ -64,6 +64,10 @@ return [
         'reviewed' => (bool) env('AISA_KNOWLEDGE_REVIEWED', false),
     ],
 
+    // Set AISA_MAMA_CARE_REVIEWED=true once a qualified health worker has
+    // reviewed lang/*/mama.php. Until then the page says it is a draft.
+    'mama_care_reviewed' => (bool) env('AISA_MAMA_CARE_REVIEWED', false),
+
     // OPEN DECISION: name of the AI assistant. Must not be "Aisa".
     'assistant_name' => env('AISA_ASSISTANT_NAME', 'Msaidizi'),
 

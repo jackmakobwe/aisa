@@ -37,6 +37,7 @@
                 <a href="{{ route('home') }}" class="rounded-lg px-2.5 py-2 text-ink-soft no-underline hover:bg-sand hover:text-ink @if(request()->routeIs('home')) text-ink font-semibold @endif">{{ __('ui.nav_home') }}</a>
                 <a href="{{ route('how') }}" class="rounded-lg px-2.5 py-2 text-ink-soft no-underline hover:bg-sand hover:text-ink @if(request()->routeIs('how')) text-ink font-semibold @endif">{{ __('ui.nav_how') }}</a>
                 <a href="{{ route('articles.index') }}" class="rounded-lg px-2.5 py-2 text-ink-soft no-underline hover:bg-sand hover:text-ink @if(request()->routeIs('articles.*')) text-ink font-semibold @endif">{{ __('ui.nav_articles') }}</a>
+                <a href="{{ route('mama-care') }}" class="rounded-lg px-2.5 py-2 text-ink-soft no-underline hover:bg-sand hover:text-ink @if(request()->routeIs('mama-care')) text-ink font-semibold @endif">{{ __('mama.title') }}</a>
                 <a href="{{ route('about') }}" class="rounded-lg px-2.5 py-2 text-ink-soft no-underline hover:bg-sand hover:text-ink @if(request()->routeIs('about')) text-ink font-semibold @endif">{{ __('ui.nav_about') }}</a>
                 @guest('member')
                     <a href="{{ route('check.show') }}" class="rounded-lg px-2.5 py-2 text-ink-soft no-underline hover:bg-sand hover:text-ink @if(request()->routeIs('check.*')) text-ink font-semibold @endif">{{ __('ui.nav_check') }}</a>
@@ -74,6 +75,7 @@
                 <a href="{{ route('home') }}" class="rounded-lg px-3 py-2.5 text-ink no-underline hover:bg-sand">{{ __('ui.nav_home') }}</a>
                 <a href="{{ route('how') }}" class="rounded-lg px-3 py-2.5 text-ink no-underline hover:bg-sand">{{ __('ui.nav_how') }}</a>
                 <a href="{{ route('articles.index') }}" class="rounded-lg px-3 py-2.5 text-ink no-underline hover:bg-sand">{{ __('ui.nav_articles') }}</a>
+                <a href="{{ route('mama-care') }}" class="rounded-lg px-3 py-2.5 text-ink no-underline hover:bg-sand">{{ __('mama.title') }}</a>
                 <a href="{{ route('about') }}" class="rounded-lg px-3 py-2.5 text-ink no-underline hover:bg-sand">{{ __('ui.nav_about') }}</a>
                 <a href="{{ route('check.show') }}" class="rounded-lg px-3 py-2.5 text-ink no-underline hover:bg-sand">{{ __('ui.nav_check') }}</a>
                 <a href="{{ route('contact.show') }}" class="rounded-lg px-3 py-2.5 text-ink no-underline hover:bg-sand">{{ __('ui.nav_contact') }}</a>
@@ -113,6 +115,7 @@
                 <a href="{{ route('how') }}">{{ __('ui.nav_how') }}</a>
                 <a href="{{ route('about') }}">{{ __('ui.nav_about') }}</a>
                 <a href="{{ route('articles.index') }}">{{ __('ui.nav_articles') }}</a>
+                <a href="{{ route('mama-care') }}">{{ __('mama.title') }}</a>
                 <a href="{{ route('privacy') }}">{{ __('ui.nav_privacy') }}</a>
                 <a href="{{ route('terms') }}">{{ __('ui.nav_terms') }}</a>
                 <a href="{{ route('contact.show') }}">{{ __('ui.nav_contact') }}</a>

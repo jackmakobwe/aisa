@@ -30,6 +30,20 @@ class PageController extends Controller
         ]);
     }
 
+    /** Health education for young mothers and the people supporting them. */
+    public function mamaCare(): View
+    {
+        // Only photos whose files are present; the page works without any.
+        $photos = collect(config('mama.photos'))
+            ->filter(fn ($photo, $key) => file_exists(public_path("images/mama/{$key}-640.webp")) && file_exists(public_path("images/mama/{$key}-1200.webp")))
+            ->all();
+
+        return view('public.mama-care', [
+            'reviewed' => (bool) config('aisa.mama_care_reviewed'),
+            'photos' => $photos,
+        ]);
+    }
+
     public function howItWorks(): View
     {
         return view('public.how-it-works');

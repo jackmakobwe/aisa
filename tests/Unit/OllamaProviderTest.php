@@ -48,6 +48,18 @@ class OllamaProviderTest extends TestCase
         });
     }
 
+    public function test_never_imposes_a_time_limit_on_unlimited_processes(): void
+    {
+        Http::fake(['*' => Http::response(['message' => ['content' => '{}'], 'done_reason' => 'stop'])]);
+        $before = ini_get('max_execution_time');
+        set_time_limit(0);
+
+        $this->provider()->generateJson('S', [['role' => 'user', 'content' => 'x']], [], 10);
+
+        $this->assertSame('0', ini_get('max_execution_time'));
+        set_time_limit((int) $before);
+    }
+
     public function test_maps_failures_to_short_reasons(): void
     {
         Http::fake(['*' => Http::sequence()
