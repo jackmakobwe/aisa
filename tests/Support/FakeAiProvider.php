@@ -23,6 +23,11 @@ class FakeAiProvider implements AiProvider
         return 'fake';
     }
 
+    public function model(): string
+    {
+        return 'fake-model';
+    }
+
     public function isMock(): bool
     {
         return false;

@@ -90,6 +90,8 @@ class ArticleLibrary
             'alt' => $text['image_alt'] ?? '',
             'credit' => $meta['photo']['credit'],
             'source' => $meta['photo']['source'],
+            'licence' => $meta['photo']['licence'] ?? null,
+            'licence_url' => $meta['photo']['licence_url'] ?? null,
         ];
     }
 

@@ -49,7 +49,8 @@ These notes describe what the code does. They are not legal advice; the legal re
 - **AI provider:** conversation text only (see [ai-provider.md](ai-provider.md)).
 - **Mail provider:** safety alerts contain reference, level and reasons, but no content. Staff password-reset emails. Account confirmation and password-reset emails (the mail provider learns the address).
 - **Google** (only when "Continue with Google" is configured and used): Google learns that the person signed in to this site.
-- **Article photos** are stored on this server; no request goes to Unsplash when a page is viewed.
+- **Article and Mama Care photos** are stored on this server; no request goes to Wikimedia Commons or any other image host when a page is viewed.
+- **Maps:** "Open in Google Maps" buttons are plain links, so Google is contacted only if the person taps one. The service map on Get help now is embedded only after the person presses "Show map". From then on, Google receives that visit, and the page says so before the button. Frames from Google are allowed on that page only. The legal review should confirm this wording.
 - No analytics, advertising, fonts or CDNs are loaded on public pages. `Referrer-Policy: no-referrer` stops this site appearing in other sites' logs.
 
 ## Shared devices and Quick exit

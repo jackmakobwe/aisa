@@ -33,6 +33,32 @@
             <label for="url" class="field-label">Website</label>
             <input id="url" name="url" type="url" maxlength="255" class="field" placeholder="https://" value="{{ old('url', $resource->url) }}">
         </div>
+        <div class="sm:col-span-2">
+            <label for="address" class="field-label">Address <span class="font-normal text-ink-muted">(street, building or landmark)</span></label>
+            <input id="address" name="address" type="text" maxlength="255" class="field" placeholder="e.g. Kawawa Road, near Mwananyamala market" value="{{ old('address', $resource->address) }}">
+        </div>
+        <div>
+            <label for="district" class="field-label">District</label>
+            <input id="district" name="district" type="text" maxlength="80" class="field" placeholder="e.g. Kinondoni" value="{{ old('district', $resource->district) }}">
+        </div>
+        <div>
+            <label for="region" class="field-label">Region <span class="font-normal text-ink-muted">(empty = national)</span></label>
+            <select id="region" name="region" class="field">
+                <option value="">National (all regions)</option>
+                @foreach (config('help.regions') as $r)
+                    <option value="{{ $r }}" @selected(old('region', $resource->region) === $r)>{{ $r }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div>
+            <label for="latitude" class="field-label">Latitude <span class="font-normal text-ink-muted">(optional)</span></label>
+            <input id="latitude" name="latitude" type="text" inputmode="decimal" class="field" placeholder="-6.792354" value="{{ old('latitude', $resource->latitude) }}">
+        </div>
+        <div>
+            <label for="longitude" class="field-label">Longitude <span class="font-normal text-ink-muted">(optional)</span></label>
+            <input id="longitude" name="longitude" type="text" inputmode="decimal" class="field" placeholder="39.208328" value="{{ old('longitude', $resource->longitude) }}">
+        </div>
+        <p class="text-xs text-ink-muted sm:col-span-2">To get exact coordinates, right-click the place in Google Maps and click the numbers at the top of the menu to copy them. Without coordinates, "Open in Google Maps" searches for the name and address.</p>
         <div>
             <label for="hours" class="field-label">Hours and languages</label>
             <input id="hours" name="hours" type="text" maxlength="80" class="field" placeholder="e.g. 24 hours · Kiswahili, English" value="{{ old('hours', $resource->hours) }}">
@@ -49,6 +75,10 @@
     <div>
         <label for="description_sw" class="field-label">Description (Kiswahili)</label>
         <textarea id="description_sw" name="description_sw" rows="2" maxlength="1000" class="field">{{ old('description_sw', $resource->description_sw) }}</textarea>
+    </div>
+    <div>
+        <label for="source_note" class="field-label">Source and verification notes <span class="font-normal text-ink-muted">(staff only, never shown publicly)</span></label>
+        <textarea id="source_note" name="source_note" rows="2" maxlength="500" class="field" placeholder="Where the details came from, who you called and what they confirmed">{{ old('source_note', $resource->source_note) }}</textarea>
     </div>
     <button type="submit" class="btn-primary">Save</button>
 </form>

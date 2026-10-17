@@ -31,6 +31,7 @@ return [
     'dev_banner_title' => 'Development version.',
     'dev_mock' => 'AI replies are simulated',
     'dev_local_model' => 'AI replies come from a small local test model and may be slow or inaccurate',
+    'dev_free_api' => 'AI replies come from a free test service: do not share real personal details',
     'dev_contacts' => 'crisis contacts are not verified yet',
     'dev_not_ready' => 'launch reviews are still pending',
 ];

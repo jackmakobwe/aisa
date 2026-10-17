@@ -52,7 +52,7 @@ class QualityEvaluate extends Command
         if ($provider->isMock()) {
             $this->warn('The configured provider is the development MOCK: results say nothing about a real model.');
         }
-        $this->info("Provider: {$provider->name()} · {$this->modelName($provider->name())} · ".count($cases).' case(s)');
+        $this->info("Provider: {$provider->name()} · {$provider->model()} · ".count($cases).' case(s)');
 
         $results = [];
         foreach ($cases as $i => $case) {
@@ -81,7 +81,7 @@ class QualityEvaluate extends Command
         Storage::disk('local')->put($file, json_encode([
             'run_at' => now()->toIso8601String(),
             'provider' => $provider->name(),
-            'model' => $this->modelName($provider->name()),
+            'model' => $provider->model(),
             'prompt_version' => config('aisa.ai.prompt_version'),
             'summary' => ['cases' => count($results), 'passed' => $passed],
             'results' => $results,
@@ -179,14 +179,5 @@ class QualityEvaluate extends Command
         }
 
         return $sum;
-    }
-
-    private function modelName(string $provider): string
-    {
-        return match ($provider) {
-            'ollama' => config('aisa.ai.ollama.model'),
-            'anthropic' => config('aisa.ai.model'),
-            default => $provider,
-        };
     }
 }

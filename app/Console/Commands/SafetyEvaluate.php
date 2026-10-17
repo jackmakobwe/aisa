@@ -95,7 +95,7 @@ class SafetyEvaluate extends Command
         Storage::disk('local')->put($file, json_encode([
             'run_at' => now()->toIso8601String(),
             'provider' => $useModel ? $ai->provider()->name() : 'rules-only',
-            'model' => $useModel ? config('aisa.ai.model') : null,
+            'model' => $useModel ? $ai->provider()->model() : null,
             'prompt_version' => config('aisa.ai.prompt_version'),
             'summary' => ['cases' => count($results), 'misses' => $count('MISS'), 'rule_misses' => $count('RULE-MISS'), 'false_alarms' => $count('FALSE-ALARM'), 'model_errors' => $errors],
             'results' => $results,

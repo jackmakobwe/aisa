@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\CrisisResource;
 use App\Models\Member;
 use App\Models\User;
 use App\Services\Ai\AiProvider;
@@ -12,6 +13,7 @@ use App\Services\LaunchReadiness;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
 /*
@@ -55,6 +57,69 @@ Artisan::command('aisa:launch-check', function (LaunchReadiness $readiness) {
 })->purpose('List launch blockers (verified contacts, legal review, etc.)');
 
 /*
+| Import starter help contacts (resources/contacts/tanzania.json). Every
+| imported contact is UNVERIFIED and hidden until staff check and verify it.
+| Contacts that already exist (same name) are left untouched, unless
+| --update is given: then UNVERIFIED ones are refreshed from the file.
+| Verified contacts are never changed by an import.
+*/
+Artisan::command('aisa:import-contacts {--file=} {--update}', function (AuditLogger $audit) {
+    $path = $this->option('file') ?: resource_path('contacts/tanzania.json');
+    $rows = json_decode((string) @file_get_contents($path), true)['contacts'] ?? null;
+    if (! is_array($rows)) {
+        $this->error("No contacts found in {$path}");
+
+        return 1;
+    }
+
+    $fields = ['category', 'name', 'phone', 'url', 'address', 'district', 'region', 'latitude', 'longitude',
+        'description_en', 'description_sw', 'hours', 'source_note', 'sort_order'];
+    $created = 0;
+    $updated = 0;
+    $skipped = [];
+    foreach ($rows as $row) {
+        $validator = Validator::make($row, [
+            'category' => ['required', Rule::in(CrisisResource::CATEGORIES)],
+            'name' => ['required', 'string', 'max:160'],
+            'phone' => ['nullable', 'regex:/^[0-9+()\s\-]{3,40}$/', 'required_without_all:url,address'],
+            'url' => ['nullable', 'url:https,http'],
+            'region' => ['nullable', Rule::in(config('help.regions'))],
+        ]);
+        if ($validator->fails()) {
+            $skipped[] = ($row['name'] ?? '?').': '.$validator->errors()->first();
+
+            continue;
+        }
+        if ($existing = CrisisResource::where('name', $row['name'])->first()) {
+            if (! $this->option('update')) {
+                $skipped[] = "{$row['name']}: already exists";
+            } elseif ($existing->is_verified) {
+                $skipped[] = "{$row['name']}: verified, left unchanged";
+            } else {
+                // Clear fields the file no longer sets, so stale details do not linger.
+                $existing->fill(array_merge(array_fill_keys($fields, null), ['sort_order' => 0], array_intersect_key($row, array_flip($fields))))->save();
+                $audit->log('resource.import_updated', $existing);
+                $updated++;
+            }
+
+            continue;
+        }
+
+        $resource = new CrisisResource(array_intersect_key($row, array_flip($fields)));
+        $resource->forceFill(['is_verified' => false, 'verified_by' => null, 'verified_at' => null])->save();
+        $audit->log('resource.imported', $resource);
+        $created++;
+    }
+
+    $this->info("Imported {$created} contact(s), updated {$updated}. All are UNVERIFIED and hidden until staff verify them in Admin > Crisis contacts.");
+    foreach ($skipped as $line) {
+        $this->line("  skipped: {$line}");
+    }
+
+    return 0;
+})->purpose('Import starter help contacts (always unverified)');
+
+/*
 | Send one test message to the configured AI provider and show the reply,
 | without creating a conversation: php artisan aisa:ai-check "Mambo".
 */
@@ -63,9 +128,9 @@ Artisan::command('aisa:ai-check {message?} {--module=}', function (AiProvider $p
     $module = $this->option('module') ?: null;
     $notes = $knowledge->search($message, $module);
 
-    $this->info("Provider: {$provider->name()}".($provider->name() === 'ollama' ? ' ('.config('aisa.ai.ollama.model').')' : ''));
+    $this->info("Provider: {$provider->name()} ({$provider->model()})");
     $this->line('Reference notes: '.(implode(', ', array_map(fn ($n) => $n->id, $notes)) ?: 'none'));
-    $this->line('Waiting for the reply (a local model can take a few minutes)...');
+    $this->line('Waiting for the reply'.($provider->name() === 'ollama' ? ' (a local model can take a few minutes)' : '').'...');
 
     $system = Prompts::turnSystem(config('aisa.assistant_name'), 0, config('aisa.ai.max_follow_up_questions'), false, 'sw', config('aisa.response_window_hours'), $module, $notes);
 
@@ -73,10 +138,13 @@ Artisan::command('aisa:ai-check {message?} {--module=}', function (AiProvider $p
         $result = $provider->generateJson($system, [['role' => 'user', 'content' => $message]], Prompts::turnSchema(), 2000);
     } catch (AiUnavailableException $e) {
         $this->error("The AI could not reply: {$e->reason}");
+        $local = $provider->name() === 'ollama';
         $this->line(match ($e->reason) {
-            'connection' => 'Is Ollama running? Start the Ollama app, or run: ollama serve',
-            'model_missing' => 'Download the model first: ollama pull '.config('aisa.ai.ollama.model'),
-            'timeout' => 'The model took too long. Try a smaller model or raise AISA_OLLAMA_TIMEOUT.',
+            'connection' => $local ? 'Is Ollama running? Start the Ollama app, or run: ollama serve' : 'Could not reach the API. Check the internet connection.',
+            'model_missing' => $local ? 'Download the model first: ollama pull '.$provider->model() : "The API does not know the model \"{$provider->model()}\". Check the model name in .env.",
+            'auth' => 'The API key was rejected. Check the key in .env, then run: php artisan config:clear',
+            'rate_limited' => 'The free tier limit was reached. Wait a minute, or try again later.',
+            'timeout' => $local ? 'The model took too long. Try a smaller model or raise AISA_OLLAMA_TIMEOUT.' : 'The API took too long. Try again.',
             default => 'See storage/logs/laravel.log for details.',
         });
 

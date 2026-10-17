@@ -20,6 +20,14 @@
                     <div class="min-w-0 flex-1">
                         <p class="font-semibold">{{ $resource->name }}</p>
                         <p class="text-sm text-ink-soft">{{ $resource->phone }} @if($resource->url) · {{ $resource->url }} @endif @if($resource->hours) · {{ $resource->hours }} @endif</p>
+                        <p class="text-sm text-ink-soft">
+                            <i data-lucide="map-pin" class="inline h-3.5 w-3.5"></i>
+                            {{ collect([$resource->address, $resource->place()])->filter()->implode(' · ') ?: 'National' }}
+                            @if ($maps = $resource->mapsUrl()) · <a href="{{ $maps }}" rel="noopener noreferrer" target="_blank">check on Google Maps</a> @endif
+                        </p>
+                        @if ($resource->source_note)
+                            <p class="mt-1 rounded-lg bg-sand px-2 py-1 text-xs text-ink-soft"><strong>Source:</strong> {{ $resource->source_note }}</p>
+                        @endif
                         @if ($resource->is_verified)
                             <p @class(['mt-1 text-xs', 'font-semibold text-clay' => $resource->isDueForReview(), 'text-ink-muted' => ! $resource->isDueForReview()])>
                                 Verified by {{ $resource->verifier?->name ?? 'former staff' }} on {{ $resource->verified_at->format('j M Y') }}@if($resource->isDueForReview()) — due for re-check @endif

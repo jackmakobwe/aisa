@@ -59,18 +59,62 @@ class PageController extends Controller
         ]);
     }
 
-    public function getHelp(): View
+    /**
+     * Emergency hotlines first, then a list of every service in the chosen
+     * region (for people who do not use maps), then national services. The
+     * map is embedded only when the person asks for it (?map=1), so Google is
+     * not contacted on an ordinary visit.
+     *
+     * Only verified contacts are public. On a developer's own machine
+     * (APP_ENV=local) unverified ones are shown too, clearly labelled, so
+     * the page can be checked before the contacts are.
+     */
+    public function getHelp(Request $request): View
     {
-        $resources = CrisisResource::verified()
+        $regions = config('help.regions');
+        $region = in_array($request->query('region'), $regions, true) ? $request->query('region') : null;
+        $preview = app()->isLocal();
+
+        $contacts = CrisisResource::query()
+            ->when(! $preview, fn ($q) => $q->verified())
+            ->forRegion($region)
             ->orderBy('sort_order')->orderBy('name')
-            ->get()
-            ->groupBy('category');
+            ->get();
+
+        [$national, $local] = $contacts->partition(fn (CrisisResource $c) => $c->region === null);
+        [$hotlines, $nationalServices] = $national->partition(fn (CrisisResource $c) => filled($c->phone) && in_array($c->category, ['emergency', 'child', 'health', 'mental_health'], true) && strlen(preg_replace('/\D/', '', $c->phone)) <= 4);
+
+        $services = config('help.map_services');
+        $service = array_key_exists((string) $request->query('service'), $services) ? $request->query('service') : 'police';
+        $mapQuery = $services[$service].' in '.($region ?? 'Tanzania').($region ? ', Tanzania' : '');
 
         return view('public.get-help', [
-            'resources' => $resources,
+            // Police, ambulance and fire first, then helplines.
+            'hotlines' => $hotlines->sortBy(fn (CrisisResource $c) => [array_search($c->category, CrisisResource::CATEGORIES, true), $c->sort_order])->values(),
+            'local' => $local->groupBy('category'),
+            'national' => $nationalServices->groupBy('category'),
             'categories' => CrisisResource::CATEGORIES,
+            'preview' => $preview,
+            'regions' => $regions,
+            'region' => $region,
+            'services' => array_keys($services),
+            'service' => $service,
+            'showMap' => $request->boolean('map'),
+            'mapEmbedUrl' => $this->mapEmbedUrl($mapQuery),
+            // A key restricted to this domain needs the site origin (never the path).
+            'mapReferrerPolicy' => config('help.maps_embed_key') ? 'strict-origin' : 'no-referrer',
+            'mapLinkUrl' => 'https://www.google.com/maps/search/?api=1&query='.rawurlencode($mapQuery),
             'unverifiedCount' => app()->isProduction() ? 0 : CrisisResource::where('is_verified', false)->count(),
         ]);
+    }
+
+    private function mapEmbedUrl(string $query): string
+    {
+        $key = config('help.maps_embed_key');
+
+        return $key
+            ? 'https://www.google.com/maps/embed/v1/search?key='.rawurlencode($key).'&q='.rawurlencode($query)
+            : 'https://maps.google.com/maps?q='.rawurlencode($query).'&output=embed';
     }
 
     public function privacy(): View

@@ -6,7 +6,7 @@ All AI settings live in `.env` and `config/aisa.php`:
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `AISA_AI_PROVIDER` | `mock` | `anthropic` for a real model, `mock` for development (refused in production) |
+| `AISA_AI_PROVIDER` | `mock` | `anthropic` for the reviewed hosted model, `groq` or `gemini` for free-tier testing, `ollama` for a local model, `mock` for development (refused in production) |
 | `ANTHROPIC_API_KEY` | (empty) | API key; server-side only |
 | `AISA_AI_MODEL` | `claude-opus-5-5` | Model id |
 | `AISA_AI_EFFORT` | `medium` | Reasoning effort (`low`/`medium`/`high`). Lower is cheaper and faster; test quality before lowering |
@@ -35,6 +35,29 @@ Each reply is checked automatically:
 The command prints a table and saves the replies to `storage/app/private/quality-eval/` for a person to read. Use it to compare models and to measure prompt or knowledge changes. When a real weakness shows up, add a case for it.
 
 The model is not retrained. It is taught through the prompt and the knowledge notes, and the quality set measures whether that works. Fine-tuning would need a GPU and several hundred example conversations written or reviewed by professionals. Real user conversations must not be used: consent does not cover it.
+
+## Free hosted APIs for testing (Groq, Gemini)
+
+`OpenAiCompatibleProvider` talks to any OpenAI-compatible chat API. Two presets are configured:
+
+| `AISA_AI_PROVIDER` | Key variable | Get a key | Default model | JSON mode |
+|---|---|---|---|---|
+| `groq` | `GROQ_API_KEY` | console.groq.com/keys | `llama-3.3-70b-versatile` | `object` (schema in instructions) |
+| `gemini` | `GEMINI_API_KEY` | aistudio.google.com/apikey | `gemini-2.5-flash` | `schema` (enforced by the API) |
+
+To set one up:
+
+1. Set the provider and key in `.env`.
+2. Run `php artisan config:clear`.
+3. Test with `php artisan aisa:ai-check "Mambo"`, then `php artisan aisa:quality-eval`.
+
+Things to know:
+
+- **Model names change.** If the API answers `model_missing`, pick a current model from the provider's list and set `AISA_GROQ_MODEL` or `AISA_GEMINI_MODEL`.
+- **Free tiers may keep or use data,** depending on the provider's terms. Use them only with made-up test messages.
+- **Every public page says so:** while one of these providers is active, the development banner tells visitors not to share real personal details.
+- **Launch is blocked:** the launch check keeps requiring the reviewed hosted provider.
+- **Rate limits apply.** A `rate_limited` error means wait and retry.
 
 ## Free local model (Ollama)
 

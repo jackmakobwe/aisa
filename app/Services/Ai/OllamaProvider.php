@@ -30,6 +30,11 @@ class OllamaProvider implements AiProvider
         return 'ollama';
     }
 
+    public function model(): string
+    {
+        return $this->model;
+    }
+
     public function isMock(): bool
     {
         return false;

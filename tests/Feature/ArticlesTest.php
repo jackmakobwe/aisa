@@ -32,7 +32,11 @@ class ArticlesTest extends TestCase
 
             if (! empty($meta['photo'])) {
                 $this->assertNotEmpty($meta['photo']['credit']);
-                $this->assertStringStartsWith('https://unsplash.com/photos/', $meta['photo']['source']);
+                $this->assertStringStartsWith('https://commons.wikimedia.org/wiki/File:', $meta['photo']['source']);
+                $this->assertNotEmpty($meta['photo']['licence']);
+                if (str_starts_with($meta['photo']['licence'], 'CC BY')) {
+                    $this->assertNotEmpty($meta['photo']['licence_url'], "{$slug} needs a licence link");
+                }
                 foreach ([640, 1200] as $width) {
                     $this->assertFileExists(public_path("images/articles/{$slug}-{$width}.webp"));
                 }
@@ -109,6 +113,9 @@ class ArticlesTest extends TestCase
             ->assertSee(asset("images/articles/{$slug}-1200.webp"), false)
             ->assertSee('alt="'.e(trans("articles.items.{$slug}.image_alt", [], 'en')).'"', false)
             ->assertSee($meta['photo']['credit'])
+            ->assertSee($meta['photo']['licence'])
+            ->assertSee('rel="license noopener"', false)
+            ->assertDontSee('Unsplash')
             ->assertDontSee('images.unsplash.com', false);
 
         $this->get('/')->assertSee(asset('images/articles/'.array_key_first(config('articles.items')).'-640.webp'), false);

@@ -11,6 +11,9 @@ interface AiProvider
     /** Short identifier stored with each analysis, e.g. "anthropic". */
     public function name(): string;
 
+    /** The configured model id, for reports and diagnostics. */
+    public function model(): string;
+
     /** True for the development mock, whose output must be labelled as such. */
     public function isMock(): bool;
 

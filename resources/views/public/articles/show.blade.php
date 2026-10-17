@@ -23,7 +23,13 @@
         <x-article-cover :article="$article" :large="true" class="mt-8" />
         @if ($article['photo'])
             <p class="mt-2 text-xs text-ink-muted">
-                {!! __('articles.photo_credit', ['name' => '<a href="'.e($article['photo']['source']).'" rel="noopener" target="_blank">'.e($article['photo']['credit']).'</a>']) !!}
+                @php($photo = $article['photo'])
+                {!! __('articles.photo_credit', [
+                    'name' => '<a href="'.e($photo['source']).'" rel="noopener" target="_blank">'.e($photo['credit']).'</a>',
+                    'licence' => $photo['licence_url']
+                        ? '<a href="'.e($photo['licence_url']).'" rel="license noopener" target="_blank">'.e($photo['licence']).'</a>, '.e(__('articles.photo_cropped'))
+                        : e($photo['licence']),
+                ]) !!}
             </p>
         @endif
 

@@ -25,6 +25,9 @@ class SecurityHeaders
             "img-src 'self' data:",
             "font-src 'self'",
             "connect-src 'self'".$dev.$devWs,
+            // Google Maps may be framed only on Get help now, and only appears
+            // there after the person asks for the map.
+            $request->routeIs('get-help') ? "frame-src https://www.google.com https://maps.google.com" : "frame-src 'none'",
             "frame-ancestors 'none'",
             "form-action 'self'",
             "base-uri 'self'",

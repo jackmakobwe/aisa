@@ -14,6 +14,7 @@ use App\Services\Ai\AnthropicProvider;
 use App\Services\Ai\KnowledgeBase;
 use App\Services\Ai\MockProvider;
 use App\Services\Ai\OllamaProvider;
+use App\Services\Ai\OpenAiCompatibleProvider;
 use App\Services\LaunchReadiness;
 use App\Session\PrivacyDatabaseSessionHandler;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -47,6 +48,23 @@ class AppServiceProvider extends ServiceProvider
                     timeout: $config['timeout'],
                     maxRetries: $config['max_retries'],
                     refusalFallback: $config['refusal_fallback'],
+                );
+            }
+
+            if (in_array($config['provider'], ['groq', 'gemini'], true)) {
+                $hosted = $config[$config['provider']];
+                if (blank($hosted['api_key'])) {
+                    $env = strtoupper($config['provider']).'_API_KEY';
+                    throw new RuntimeException("AISA_AI_PROVIDER={$config['provider']} but {$env} is empty. Set the key or use AISA_AI_PROVIDER=mock for development.");
+                }
+
+                return new OpenAiCompatibleProvider(
+                    name: $config['provider'],
+                    url: $hosted['url'],
+                    apiKey: $hosted['api_key'],
+                    model: $hosted['model'],
+                    jsonMode: $hosted['json'] === 'schema' ? 'schema' : 'object',
+                    timeout: $config['timeout'],
                 );
             }
 
@@ -126,6 +144,8 @@ class AppServiceProvider extends ServiceProvider
                 $notices[] = __('ui.dev_mock');
             } elseif (config('aisa.ai.provider') === 'ollama') {
                 $notices[] = __('ui.dev_local_model');
+            } elseif (in_array(config('aisa.ai.provider'), ['groq', 'gemini'], true)) {
+                $notices[] = __('ui.dev_free_api');
             }
             if (! CrisisResource::verified()->exists()) {
                 $notices[] = __('ui.dev_contacts');

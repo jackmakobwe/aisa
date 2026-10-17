@@ -138,7 +138,7 @@ class ConversationAi
             'message_id' => $message?->id,
             'kind' => $kind,
             'provider' => $this->provider->name(),
-            'model' => $this->provider->isMock() ? 'mock' : config('aisa.ai.model'),
+            'model' => $this->provider->model(),
             'prompt_version' => config('aisa.ai.prompt_version'),
             'error' => Str::limit($reason, 120, ''),
         ]);

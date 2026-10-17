@@ -21,7 +21,8 @@ return [
     'cta_button' => 'Start a private conversation',
     'danger_note' => 'If you or someone else is in danger right now, do not wait.',
     'related_heading' => 'Read next',
-    'photo_credit' => 'Photo: :name on Unsplash. For illustration only: the people shown are not connected to this topic.',
+    'photo_credit' => 'Photo: :name, :licence. For illustration only: the people shown are not connected to this topic.',
+    'photo_cropped' => 'cropped',
 
     'topics' => [
         'therapy' => 'Therapy & counselling',
@@ -35,7 +36,7 @@ return [
         'what-to-expect-from-counselling' => [
             'title' => 'What counselling is, and what to expect',
             'excerpt' => 'Thinking about talking to a counsellor but not sure what happens? Here is what a first session is usually like and how to find support.',
-            'image_alt' => 'A young woman talking with a counsellor in a bright room',
+            'image_alt' => 'A health worker in a white coat listening to a young man across a desk',
             'sections' => [
                 [
                     'title' => 'What counselling is',
@@ -72,7 +73,7 @@ return [
         'self-esteem-and-body-image' => [
             'title' => 'Self-esteem and body image: being kinder to yourself',
             'excerpt' => 'Comparing yourself to others, especially online, can make you feel you are never enough. Small daily habits can change how you speak to yourself.',
-            'image_alt' => 'A young woman writing in a notebook outdoors',
+            'image_alt' => 'Smiling university students in Tanzania holding a University of Dar es Salaam banner',
             'sections' => [
                 [
                     'title' => 'Why it can feel so hard',
@@ -103,7 +104,7 @@ return [
         'periods-mood-and-wellbeing' => [
             'title' => 'Your period, your mood, and when to ask for help',
             'excerpt' => 'Changes in mood, energy and comfort around your period are common. Learn what is usually normal, what helps, and when to see a health worker.',
-            'image_alt' => 'A young woman resting at home with a warm drink',
+            'image_alt' => 'A pupil in a blue school sweater holding a booklet called Vipindi vya Maisha, Growth and changes',
             'sections' => [
                 [
                     'title' => 'What is common',
@@ -144,7 +145,7 @@ return [
         'understanding-anxiety' => [
             'title' => 'Understanding anxiety, and small steps that help',
             'excerpt' => 'Worry, a racing heart, trouble sleeping: anxiety is the body\'s alarm system. Here is why it happens and some simple ways to calm it.',
-            'image_alt' => 'A woman looking into the distance, deep in thought',
+            'image_alt' => 'The dark outline of a person resting quietly against an orange sunset sky',
             'sections' => [
                 [
                     'title' => 'What anxiety is',
@@ -184,7 +185,7 @@ return [
         'healthy-relationships' => [
             'title' => 'Healthy relationships: signs of respect, signs of control',
             'excerpt' => 'Love should feel safe. Learn the signs of a healthy relationship, the warning signs of control, and what to do if something feels wrong.',
-            'image_alt' => 'A young couple sitting side by side, talking',
+            'image_alt' => 'A young woman and a young man acting out a scene about relationships in Dar es Salaam',
             'sections' => [
                 [
                     'title' => 'What a healthy relationship looks like',
@@ -220,7 +221,7 @@ return [
         'pressure-at-school-and-home' => [
             'title' => 'Handling pressure at school and at home',
             'excerpt' => 'Exams, chores, family expectations and plans for the future can pile up. Some ways to cope, and to talk with family about how you feel.',
-            'image_alt' => 'A student studying at a desk with a book and a laptop',
+            'image_alt' => 'A quiet university library with a view of the Uluguru Mountains through the window',
             'sections' => [
                 [
                     'title' => 'When it all feels like too much',

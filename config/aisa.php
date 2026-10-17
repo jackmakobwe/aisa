@@ -20,9 +20,28 @@ return [
     'display_timezone' => env('AISA_DISPLAY_TIMEZONE', 'Africa/Dar_es_Salaam'),
 
     'ai' => [
-        // "anthropic", "ollama" (a free model running locally) or "mock".
+        // "anthropic", "groq" or "gemini" (free tiers, for testing), "ollama"
+        // (a free model running locally) or "mock".
         // The mock provider is refused in production.
         'provider' => env('AISA_AI_PROVIDER', 'mock'),
+        // Hosted models with free tiers, through their OpenAI-compatible APIs.
+        // For development and testing only: free tiers may keep or use data,
+        // and the launch check still requires the reviewed provider above.
+        // Model names change over time; check the provider's model list.
+        // "json": "schema" makes the API enforce the JSON schema; "object"
+        // for models that only support plain JSON mode.
+        'groq' => [
+            'url' => env('AISA_GROQ_URL', 'https://api.groq.com/openai/v1'),
+            'api_key' => env('GROQ_API_KEY'),
+            'model' => env('AISA_GROQ_MODEL', 'llama-3.3-70b-versatile'),
+            'json' => env('AISA_GROQ_JSON', 'object'),
+        ],
+        'gemini' => [
+            'url' => env('AISA_GEMINI_URL', 'https://generativelanguage.googleapis.com/v1beta/openai'),
+            'api_key' => env('GEMINI_API_KEY'),
+            'model' => env('AISA_GEMINI_MODEL', 'gemini-2.5-flash'),
+            'json' => env('AISA_GEMINI_JSON', 'schema'),
+        ],
         // Local models through Ollama (https://ollama.com). Free, private,
         // and slower on ordinary computers. See docs/ai-provider.md.
         'ollama' => [

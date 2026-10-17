@@ -54,7 +54,7 @@ Tracks the project document's requirements (IDs from sections 7 and 8). ✅ done
 - [x] Launch gate + `aisa:launch-check`
 - [x] Retention pruning (scheduled)
 - [x] Mock provider clearly labelled; refused in production
-- [x] 218 automated tests passing
+- [x] 229 automated tests passing
 - [x] Safety evaluation command and shared test set (`aisa:safety-eval`)
 - [x] Automated browser and axe accessibility check (25 pages, 0 violations)
 - [x] Educational articles (6, EN/SW) with topic filter; latest three on the home page
@@ -69,7 +69,9 @@ Tracks the project document's requirements (IDs from sections 7 and 8). ✅ done
 - [ ] Counsellor review of the articles (`AISA_ARTICLES_REVIEWED`)
 - [ ] Native Kiswahili review
 - [ ] Legal review
-- [ ] Verified crisis contacts
+- [x] Get help now: region filter, address and "Open in Google Maps" for each contact, click-to-load Google service map, 53 researched contacts in 27 regions (`aisa:import-contacts --update`, unverified); hotlines first and a region list with numbers beside names; map optional
+- [ ] Verified crisis contacts (call and verify each imported contact; add hospital phone numbers)
+- [x] Free-tier test providers (Groq, Gemini) and a local option (Ollama), with `aisa:ai-check` and `aisa:quality-eval`
 - [ ] Real-model safety testing
 - [ ] Manual screen-reader and real-device testing
 - [ ] Backups, monitoring, staging environment

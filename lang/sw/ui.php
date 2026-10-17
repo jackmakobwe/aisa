@@ -33,6 +33,7 @@ return [
     'dev_banner_title' => 'Toleo la majaribio.',
     'dev_mock' => 'majibu ya AI ni ya kuigiza',
     'dev_local_model' => 'majibu ya AI yanatoka kwenye modeli ndogo ya majaribio iliyo kwenye kompyuta hii, na yanaweza kuchelewa au kukosea',
+    'dev_free_api' => 'majibu ya AI yanatoka kwenye huduma ya bure ya majaribio: usiandike taarifa zako halisi za kibinafsi',
     'dev_contacts' => 'namba za msaada bado hazijathibitishwa',
     'dev_not_ready' => 'ukaguzi wa kabla ya uzinduzi bado haujakamilika',
 ];

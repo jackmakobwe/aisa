@@ -42,6 +42,11 @@ class MockProvider implements AiProvider
         return 'mock';
     }
 
+    public function model(): string
+    {
+        return 'mock';
+    }
+
     public function isMock(): bool
     {
         return true;

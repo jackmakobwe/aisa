@@ -22,7 +22,8 @@ return [
     'cta_button' => 'Anza mazungumzo ya faragha',
     'danger_note' => 'Ikiwa wewe au mtu mwingine yuko hatarini sasa hivi, usisubiri.',
     'related_heading' => 'Soma pia',
-    'photo_credit' => 'Picha: :name kupitia Unsplash. Ni kwa ajili ya kuonyesha tu: watu walio kwenye picha hawahusiani na mada hii.',
+    'photo_credit' => 'Picha: :name, :licence. Ni kwa ajili ya kuonyesha tu: watu walio kwenye picha hawahusiani na mada hii.',
+    'photo_cropped' => 'imekatwa',
 
     'topics' => [
         'therapy' => 'Tiba na ushauri nasaha',
@@ -36,7 +37,7 @@ return [
         'what-to-expect-from-counselling' => [
             'title' => 'Ushauri nasaha ni nini, na utarajie nini',
             'excerpt' => 'Unafikiria kuzungumza na mshauri lakini huna uhakika kinachotokea? Hivi ndivyo kikao cha kwanza huwa, na jinsi ya kupata msaada.',
-            'image_alt' => 'Msichana akizungumza na mshauri katika chumba chenye mwanga',
+            'image_alt' => 'Mhudumu wa afya aliyevaa koti jeupe akimsikiliza kijana mezani',
             'sections' => [
                 [
                     'title' => 'Ushauri nasaha ni nini',
@@ -73,7 +74,7 @@ return [
         'self-esteem-and-body-image' => [
             'title' => 'Kujithamini na mtazamo wa mwili: kujipenda zaidi',
             'excerpt' => 'Kujilinganisha na wengine, hasa mtandaoni, kunaweza kukufanya uhisi hutoshi kamwe. Tabia ndogo za kila siku zinaweza kubadilisha jinsi unavyojizungumzia.',
-            'image_alt' => 'Msichana akiandika kwenye daftari nje',
+            'image_alt' => 'Wanafunzi wa chuo kikuu Tanzania wakitabasamu wakiwa wameshika bango la Chuo Kikuu cha Dar es Salaam',
             'sections' => [
                 [
                     'title' => 'Kwa nini inaweza kuwa vigumu',
@@ -104,7 +105,7 @@ return [
         'periods-mood-and-wellbeing' => [
             'title' => 'Hedhi yako, hisia zako, na wakati wa kuomba msaada',
             'excerpt' => 'Mabadiliko ya hisia, nguvu na starehe wakati wa hedhi ni ya kawaida. Jifunze kilicho cha kawaida, kinachosaidia, na wakati wa kumwona mhudumu wa afya.',
-            'image_alt' => 'Msichana akipumzika nyumbani na kinywaji cha moto',
+            'image_alt' => 'Mwanafunzi aliyevaa sweta ya buluu ya shule ameshika kitabu kiitwacho Vipindi vya Maisha',
             'sections' => [
                 [
                     'title' => 'Kilicho cha kawaida',
@@ -145,7 +146,7 @@ return [
         'understanding-anxiety' => [
             'title' => 'Kuelewa wasiwasi, na hatua ndogo zinazosaidia',
             'excerpt' => 'Kuhangaika, moyo kwenda mbio, kukosa usingizi: wasiwasi ni kengele ya tahadhari ya mwili. Hii ndiyo sababu hutokea, na njia rahisi za kuutuliza.',
-            'image_alt' => 'Mwanamke akitazama mbali, akiwa na mawazo mengi',
+            'image_alt' => 'Kivuli cha mtu akipumzika kwa utulivu mbele ya anga la machweo la rangi ya machungwa',
             'sections' => [
                 [
                     'title' => 'Wasiwasi ni nini',
@@ -185,7 +186,7 @@ return [
         'healthy-relationships' => [
             'title' => 'Mahusiano yenye afya: dalili za heshima, dalili za udhibiti',
             'excerpt' => 'Upendo unapaswa kuwa salama. Jifunze dalili za mahusiano yenye afya, dalili za hatari za udhibiti, na nini cha kufanya jambo likionekana si sawa.',
-            'image_alt' => 'Wapenzi vijana wakiwa wameketi pamoja wakizungumza',
+            'image_alt' => 'Msichana na mvulana wakiigiza mchezo kuhusu mahusiano, Dar es Salaam',
             'sections' => [
                 [
                     'title' => 'Mahusiano yenye afya yanaonekanaje',
@@ -221,7 +222,7 @@ return [
         'pressure-at-school-and-home' => [
             'title' => 'Kukabiliana na shinikizo shuleni na nyumbani',
             'excerpt' => 'Mitihani, kazi za nyumbani, matarajio ya familia na mipango ya baadaye vinaweza kurundikana. Njia za kukabiliana, na za kuzungumza na familia kuhusu unavyojisikia.',
-            'image_alt' => 'Mwanafunzi akisoma mezani akiwa na kitabu na kompyuta',
+            'image_alt' => 'Maktaba tulivu ya chuo kikuu ikitazama Milima ya Uluguru kupitia dirisha',
             'sections' => [
                 [
                     'title' => 'Mambo yanapozidi',

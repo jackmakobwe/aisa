@@ -33,6 +33,11 @@ class AnthropicProvider implements AiProvider
         return 'anthropic';
     }
 
+    public function model(): string
+    {
+        return $this->model;
+    }
+
     public function isMock(): bool
     {
         return false;

@@ -60,7 +60,12 @@ class PublicPagesTest extends TestCase
             ->assertOk()
             ->assertSee('Checked Desk')
             ->assertDontSee('Unchecked Line')
-            ->assertSee('still being checked');
+            // Empty sections are not listed one by one any more.
+            ->assertDontSee('still being checked');
+
+        // With nothing verified at all, one short message instead of empty sections.
+        $verified->delete();
+        $this->get(route('get-help'))->assertOk()->assertSee('still being checked');
     }
 
     public function test_development_banner_says_ai_is_simulated(): void
